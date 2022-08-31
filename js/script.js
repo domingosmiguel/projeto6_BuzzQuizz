@@ -1,3 +1,19 @@
+const cssLoader = document.querySelector("div.loader");
+const quizzListSection = document.querySelector("section.quizzList");
+const createQuizSection = document.querySelector("section.createQuiz");
+const emptyUserQuizzContainer = document.querySelector(
+  "section.quizzList div.own_quizz_empty"
+);
+const userQuizzTitle = document.querySelector(
+  "section.quizzList div.quizz_title:first-of-type"
+);
+const userQuizzContainer = document.querySelector(
+  "section.quizzList div.quizz_container:not(:last-of-type)"
+);
+const serverQuizzContainer = document.querySelector(
+  "section.quizzList div.quizz_container:last-of-type"
+);
+
 let localUserQuizzIds = [];
 
 let quizzTitle;
@@ -71,16 +87,10 @@ function renderQuizz(quizzContainer, quizz) {
   quizzContainer.innerHTML += quizzTemplate(quizz.title, quizz.image);
 }
 function handleQuizz(quizz) {
-  const serverQuizzContainer = document.querySelector(
-    "div.quizz_container:last-of-type"
-  );
-  const locarQuizzContainer = document.querySelector(
-    "div.quizz_container:not(:last-of-type)"
-  );
   let thisIsALocalQuizz = false;
   localUserQuizzIds.some((localUserQuizzId) => {
     if (localUserQuizzId === quizz.id) {
-      renderQuizz(locarQuizzContainer, quizz);
+      renderQuizz(userQuizzContainer, quizz);
       thisIsALocalQuizz = true;
       return true;
     }
@@ -89,27 +99,22 @@ function handleQuizz(quizz) {
   if (!thisIsALocalQuizz) renderQuizz(serverQuizzContainer, quizz);
 }
 function quizListLoad(promise) {
+  toggleVisibility([cssLoader], [quizzListSection]);
   const quizzes = promise.data;
   quizzes.forEach((quizz) => {
     handleQuizz(quizz);
   });
   if (localUserQuizzIds.length !== 0) {
-    const hideThis = document.querySelector("div.own_quizz_empty");
-    const showThis_one = document.querySelector(
-      "div.quizz_title:first-of-type"
+    toggleVisibility(
+      [emptyUserQuizzContainer],
+      [userQuizzTitle, userQuizzContainer]
     );
-    const showThis_two = document.querySelector(
-      "div.quizz_container:not(:last-of-type)"
-    );
-    toggleVisibility([hideThis], [showThis_one, showThis_two]);
   }
 }
 function createQuizzButtonListenersSetup() {
   document.querySelectorAll(".create_quizz").forEach((button) => {
     button.addEventListener("click", () => {
-      const quizList = document.querySelector(".quizzList");
-      const createQuiz = document.querySelector(".createQuiz");
-      toggleVisibility([quizList], [createQuiz]);
+      toggleVisibility([quizzListSection], [createQuizSection]);
     });
   });
 }

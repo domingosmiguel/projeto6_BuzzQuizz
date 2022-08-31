@@ -65,11 +65,8 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
   width: 100%;
-  top: 85px;
-  z-index: 2;
-  max-height: 85%;
+  margin-top: 55px;
 }
 .createQuizInputs {
   display: flex;
@@ -105,8 +102,9 @@ h1 {
   font-weight: 700;
 }
 .createButton {
-  margin: 85px auto 0;
+  margin: 85px auto;
   height: 54px;
+  padding: 10px 20px;
   width: 370px;
   background-color: var(--header-color);
   color: #ffffff;
@@ -115,6 +113,32 @@ h1 {
   font-size: 21px;
   font-weight: 400;
 }
+.perguntaContainer {
+  display: flex;
+  width: 601px;
+  height: 74px;
+  background-color: #ffffff;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin: 10px auto;
+  font-size: 20px;
+  font-weight: 700;
+}
+.perguntaContainer {
+  display: flex;
+  width: 601px;
+  height: 74px;
+  background-color: #ffffff;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin: 20px auto;
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
+}
+
 /*  
   =============
     QuizzList
@@ -130,6 +154,9 @@ div.quizz_title {
   line-height: 23px;
   margin-bottom: 12px;
   align-items: center;
+}
+div.quizz_title:first-child {
+  margin-top: 65px;
 }
 ion-icon {
   color: var(--header-color);
@@ -199,7 +226,7 @@ div.quizz img {
   object-fit: cover;
   position: absolute;
   top: 0;
-  /*-webkit-mask-image: linear-gradient(to top, transparent 25%, black 100%);*/
+  -webkit-mask-image: linear-gradient(to top, transparent 25%, black 100%);
 }
 div.quizz p {
   font-size: 19px;
@@ -216,11 +243,80 @@ div.quizz p {
 }
 
 /*  
+  ===========
+    spinner
+  ===========
+*/
+.loader,
+.loader:before,
+.loader:after {
+  background: var(--header-color);
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: var(--header-color);
+  text-indent: -3.8em;
+  font-size: 15px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+  position: absolute;
+  left: 50vw;
+  top: calc(50vh - 69px);
+}
+.loader > p {
+  font-size: 25px;
+  line-height: 29px;
+  margin-top: 100px;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: "";
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+/*
    ===============
     Answer Quizz
    ===============
 */
-
 .answerQuizz {
   flex-direction: column;
   align-items: center;
