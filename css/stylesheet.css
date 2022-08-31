@@ -23,6 +23,10 @@
 * {
     box-sizing: border-box;
 }
+body {
+    background-color: var(--main-color);
+    font-family: var(--font);
+}
 section {
     background-color: var(--main-color);
     min-height: 100vh;
@@ -52,6 +56,59 @@ h1 {
     font-size: 37px;
     line-height: 43px;
     font-weight: 700;
+}
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+.createQuizBasic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.createQuizInputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    width: 600px;
+    height: 256px;
+    padding: 20px;
+    box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
+}
+.createQuizInputs input {
+    height: 46px;
+    width: 564px;
+    padding-left: 15px;
+    font-size: 19px;
+    border: solid 1px #bababa;
+    color: #818181;
+    border-radius: 5px;
+}
+.createQuizInputs input::placeholder {
+    color: #bababa;
+}
+.createQuizInputs input:focus {
+    outline: none !important;
+    border: 2px solid #818181;
+}
+.createQuiz h2 {
+    margin-top: 25px;
+    padding: 30px;
+    font-size: 23px;
+    font-weight: 700;
+}
+.createButton {
+    margin: 85px auto 0;
+    height: 54px;
+    width: 370px;
+    background-color: var(--header-color);
+    color: #ffffff;
+    border-radius: 15px;
+    border: none;
+    font-size: 21px;
+    font-weight: 400;
 }
 /*  
   =============

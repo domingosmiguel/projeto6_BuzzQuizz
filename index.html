@@ -29,12 +29,43 @@
                 <div class="quizz_container"></div>
             </main>
         </section>
+        <div class="createQuiz">
+            <div class="createQuizBasic hidden">
+                <h2>Comece pelo comeco</h2>
+                <div class="createQuizInputs">
+                    <input id="quizzNameInput" type="text" placeholder="Titulo do seu quizz" />
+                    <input
+                        id="quizzImgURLInput"
+                        type="url"
+                        placeholder="URL da imagem do seu quizz"
+                    />
+                    <input
+                        id="quizzQuestionNumInput"
+                        type="number"
+                        min="3"
+                        placeholder="Quantidade de perguntas do quizz"
+                    />
+                    <input
+                        id="quizzLevelNumInput"
+                        type="number"
+                        min="2"
+                        placeholder="Quantidade de niveis do quizz"
+                    />
+                </div>
+                <button class="createButton" onclick="prosseguirParaPerguntas()">
+                    Prosseguir para criar perguntas
+                </button>
+            </div>
+
+            <div class="createQuestions"></div>
+
+            <div class="createLevels"></div>
+        </div>
         <script
             type="module"
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
         ></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        Basic usage
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="./js/script.js"></script>
     </body>
