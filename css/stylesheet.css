@@ -60,14 +60,16 @@ h1 {
   display: none;
   visibility: hidden;
 }
-.createQuizBasic {
+.createQuizBasic,
+.createQuestions {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: fixed;
   width: 100%;
-  top: 60px;
+  top: 85px;
   z-index: 2;
+  max-height: 85%;
 }
 .createQuizInputs {
   display: flex;
@@ -121,6 +123,7 @@ h1 {
 div.hidden {
   display: none;
 }
+
 div.quizz_title {
   font-weight: 700;
   font-size: 20px;

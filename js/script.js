@@ -32,10 +32,27 @@ function prosseguirParaPerguntas() {
     ) {
         alert("voce nao preencheu corretamente, preencha e clique novamente!");
     } else {
-        document.querySelector(".createQuizBasic").classList.add("hidden");
-        // qualquer acao que interfira no codigo inteiro deve ser feita aqui
+        questionCreationDisplay();
+        document.querySelector(".createQuizBasic").classList.add('hidden');
+        document.querySelector(".createQuestions").classList.remove('hidden');
     }
 }
+
+function questionCreationDisplay() {
+    
+    for (let i=0; i<quizzQuestionNum; i++) {
+        const template = `<li>
+            <div class="perguntaContainer">
+                <p>Pergunta ${i+1}</p>
+                <span class="material-symbols-outlined" id="pergunta${i}Button" onclick="editPergunta()">
+                    edit_square
+                </span>
+            </div>
+        </li>`
+        document.querySelector('.createQuestions ul').innerHTML = document.querySelector('.createQuestions ul').innerHTML + template;
+    }
+}
+
 
 function toggleVisibility(itemsToHide, itemsToShow) {
     itemsToHide.forEach((item) => {
@@ -74,17 +91,23 @@ function quizListLoad(promise) {
         handleQuizz(quizz);
     });
     if (localUserQuizzIds.length !== 0) {
-        const hideThis = document.querySelector("div.own_quizz_empty").classList.toggle("hidden");
-        const showThis_one = document
-            .querySelector("div.quizz_title:first-of-type")
-            .classList.toggle("hidden");
-        const showThis_two = document
-            .querySelector("div.quizz_container:not(:last-of-type)")
-            .classList.toggle("hidden");
-        toggleVisibility(hideThis, [showThis_one, showThis_two]);
+        const hideThis = document.querySelector("div.own_quizz_empty");
+        const showThis_one = document.querySelector("div.quizz_title:first-of-type");
+        const showThis_two = document.querySelector("div.quizz_container:not(:last-of-type)");
+        toggleVisibility([hideThis], [showThis_one, showThis_two]);
     }
 }
+function createQuizzButtonListenersSetup() {
+    document.querySelectorAll(".create_quizz").forEach((button) => {
+        button.addEventListener("click", () => {
+            const quizList = document.querySelector(".quizzList");
+            const createQuiz = document.querySelector(".createQuiz");
+            toggleVisibility([quizList], [createQuiz]);
+        });
+    });
+}
 function startWebsite() {
+    createQuizzButtonListenersSetup();
     const getQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizzes.then(quizListLoad);
 }
