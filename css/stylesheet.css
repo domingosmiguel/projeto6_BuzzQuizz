@@ -1,0 +1,70 @@
+/*  
+   =========
+     Fonts
+   =========
+*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/*  
+   =============
+     Variables
+   =============
+*/
+:root {
+    --font: "Roboto", sans-serif;
+    --header-color: #ec362d;
+    --main-color: #fafafa;
+}
+/*  
+   =================
+     Global Styles
+   =================
+*/
+section {
+    background-color: var(--main-color);
+}
+header {
+    background-color: var(--header-color);
+    height: 69px;
+    width: 100vw;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+main {
+    max-width: 1052px;
+    margin: 0 auto;
+    background-color: black;
+    height: 100vh;
+}
+.dsp_flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    color: white;
+    font-size: 37px;
+    line-height: 43px;
+    font-weight: 700;
+}
+/*  
+   ==============
+     login Page
+   ==============
+*/
+
+/*  
+   ===============
+     Chat layout
+   ===============
+*/
+
+/*  
+   ============
+     Messages
+   ============
+*/
+
+/*  
+   =============
+     Side Menu
+   =============
+*/
