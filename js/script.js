@@ -36,6 +36,7 @@ function prosseguirParaPerguntas() {
         // qualquer acao que interfira no codigo inteiro deve ser feita aqui
     }
 }
+
 function toggleVisibility() {
     document.querySelector("div.own_quizz_empty").classList.toggle("hidden");
     document.querySelector("div.quizz_title:first-of-type").classList.toggle("hidden");
