@@ -24,20 +24,20 @@ section {
 }
 header {
     background-color: var(--header-color);
+    width: 100%;
     height: 69px;
-    width: 100vw;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 main {
     max-width: 1052px;
     margin: 0 auto;
     background-color: black;
-    height: 100vh;
+    height: 80vh;
 }
 .dsp_flex {
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 h1 {
     color: white;
