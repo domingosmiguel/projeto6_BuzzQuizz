@@ -266,6 +266,8 @@ function reloadQuizz() {
 }
 
 function loadHome() {
-  divQuestions.classList.add("hidden");
+  toggleVisibility([divQuestions], []);
   startWebsite();
 }
+
+// loadSelectedQuizz();
