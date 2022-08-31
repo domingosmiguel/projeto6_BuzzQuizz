@@ -36,6 +36,7 @@ function prosseguirParaPerguntas() {
         // qualquer acao que interfira no codigo inteiro deve ser feita aqui
     }
 }
+
 function toggleVisibility(itemsToHide, itemsToShow) {
     itemsToHide.forEach((item) => {
         item.classList.add("hidden");

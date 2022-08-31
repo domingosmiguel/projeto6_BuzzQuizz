@@ -65,6 +65,10 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 60px;
+    z-index: 2;
 }
 .createQuizInputs {
     display: flex;
@@ -193,7 +197,7 @@ div.quizz img {
     object-fit: cover;
     position: absolute;
     top: 0;
-    -webkit-mask-image: linear-gradient(to top, transparent 25%, black 100%);
+    /*-webkit-mask-image: linear-gradient(to top, transparent 25%, black 100%);*/
 }
 div.quizz p {
     font-size: 19px;
