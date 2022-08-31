@@ -230,7 +230,7 @@ function showResult() {
 
     <div class="nav dsp_flex">
         <button onClick="reloadQuizz()" class="reset">Reniciar Quizz</button>
-        <button class="home">Voltar pra home</button>
+        <button onClick="loadHome()" class="home">Voltar pra home</button>
     </div>
     `;
 
@@ -265,6 +265,7 @@ function reloadQuizz() {
   loadSelectedQuizz();
 }
 
-function loadHome() {}
-
-loadSelectedQuizz();
+function loadHome() {
+  divQuestions.classList.add("hidden");
+  startWebsite();
+}
