@@ -1,5 +1,6 @@
 const cssLoader = document.querySelector("div.loader");
 const quizzListSection = document.querySelector("section.quizzList");
+const createQuizSection = document.querySelector("section.createQuiz");
 const emptyUserQuizzContainer = document.querySelector("section.quizzList div.own_quizz_empty");
 const userQuizzTitle = document.querySelector("section.quizzList div.quizz_title:first-of-type");
 const userQuizzContainer = document.querySelector(
@@ -106,9 +107,7 @@ function quizListLoad(promise) {
 function createQuizzButtonListenersSetup() {
     document.querySelectorAll(".create_quizz").forEach((button) => {
         button.addEventListener("click", () => {
-            const quizList = document.querySelector(".quizzList");
-            const createQuiz = document.querySelector(".createQuiz");
-            toggleVisibility([quizList], [createQuiz]);
+            toggleVisibility([quizzListSection], [createQuizSection]);
         });
     });
 }
