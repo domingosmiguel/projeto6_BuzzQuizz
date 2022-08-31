@@ -15,18 +15,21 @@
             </header>
             <main>
                 <div class="quizz_title dsp_flex hidden">
-                    Seus Quizzes<ion-icon name="add-circle"></ion-icon>
+                    Seus Quizzes<ion-icon
+                        data-identifier="create-quizz"
+                        name="add-circle"
+                    ></ion-icon>
                 </div>
                 <div class="own_quizz_empty dsp_flex">
                     <p class="own_quizz">
                         Você não criou nenhum <br />
                         quizz ainda :(
                     </p>
-                    <button class="create_quizz">Criar Quizz</button>
+                    <button data-identifier="create-quizz" class="create_quizz">Criar Quizz</button>
                 </div>
-                <div class="quizz_container hidden"></div>
+                <div data-identifier="user-quizzes" class="quizz_container hidden"></div>
                 <div class="quizz_title">Todos os Quizzes</div>
-                <div class="quizz_container"></div>
+                <div data-identifier="general-quizzes" class="quizz_container"></div>
             </main>
         </section>
         <div class="createQuiz">

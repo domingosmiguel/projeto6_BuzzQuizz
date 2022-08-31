@@ -36,13 +36,16 @@ function prosseguirParaPerguntas() {
         // qualquer acao que interfira no codigo inteiro deve ser feita aqui
     }
 }
-function toggleVisibility() {
-    document.querySelector("div.own_quizz_empty").classList.toggle("hidden");
-    document.querySelector("div.quizz_title:first-of-type").classList.toggle("hidden");
-    document.querySelector("div.quizz_container:not(:last-of-type)").classList.toggle("hidden");
+function toggleVisibility(itemsToHide, itemsToShow) {
+    itemsToHide.forEach((item) => {
+        item.classList.add("hidden");
+    });
+    itemsToShow.forEach((item) => {
+        item.classList.remove("hidden");
+    });
 }
 function quizzTemplate(title, image) {
-    return `<div class="quizz">
+    return `<div data-identifier="quizz-card" class="quizz">
                 <img src="${image}" alt="quizz_image">
                 <p class="dsp_flex">${title}</p>
             </div>`;
@@ -66,11 +69,19 @@ function handleQuizz(quizz) {
 }
 function quizListLoad(promise) {
     const quizzes = promise.data;
-    console.log(quizzes);
     quizzes.forEach((quizz) => {
         handleQuizz(quizz);
     });
-    if (localUserQuizzIds.length !== 0) toggleVisibility();
+    if (localUserQuizzIds.length !== 0) {
+        const hideThis = document.querySelector("div.own_quizz_empty").classList.toggle("hidden");
+        const showThis_one = document
+            .querySelector("div.quizz_title:first-of-type")
+            .classList.toggle("hidden");
+        const showThis_two = document
+            .querySelector("div.quizz_container:not(:last-of-type)")
+            .classList.toggle("hidden");
+        toggleVisibility(hideThis, [showThis_one, showThis_two]);
+    }
 }
 function startWebsite() {
     const getQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
