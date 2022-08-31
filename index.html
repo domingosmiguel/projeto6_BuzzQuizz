@@ -1,75 +1,179 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>BuzzQuizz</title>
-        <link rel="stylesheet" href="./css/reset.css" />
-        <link rel="stylesheet" href="./css/stylesheet.css" />
-        <link rel="stylesheet" href="./css/mediaQuery.css" />
-    </head>
-    <body>
-        <section class="quizzList">
-            <header class="dsp_flex">
-                <h1>BuzzQuizz</h1>
-            </header>
-            <main class="hidden">
-                <div class="quizz_title dsp_flex hidden">
-                    Seus Quizzes<ion-icon
-                        data-identifier="create-quizz"
-                        name="add-circle"
-                    ></ion-icon>
-                </div>
-                <div class="own_quizz_empty dsp_flex">
-                    <p class="own_quizz">
-                        Você não criou nenhum <br />
-                        quizz ainda :(
-                    </p>
-                    <button data-identifier="create-quizz" class="create_quizz">Criar Quizz</button>
-                </div>
-                <div data-identifier="user-quizzes" class="quizz_container hidden"></div>
-                <div class="quizz_title">Todos os Quizzes</div>
-                <div data-identifier="general-quizzes" class="quizz_container"></div>
-            </main>
-        </section>
-        <div class="createQuiz">
-            <div class="createQuizBasic">
-                <h2>Comece pelo comeco</h2>
-                <div class="createQuizInputs">
-                    <input id="quizzNameInput" type="text" placeholder="Titulo do seu quizz" />
-                    <input
-                        id="quizzImgURLInput"
-                        type="url"
-                        placeholder="URL da imagem do seu quizz"
-                    />
-                    <input
-                        id="quizzQuestionNumInput"
-                        type="number"
-                        min="3"
-                        placeholder="Quantidade de perguntas do quizz"
-                    />
-                    <input
-                        id="quizzLevelNumInput"
-                        type="number"
-                        min="2"
-                        placeholder="Quantidade de niveis do quizz"
-                    />
-                </div>
-                <button class="createButton" onclick="prosseguirParaPerguntas()">
-                    Prosseguir para criar perguntas
-                </button>
-            </div>
-
-            <div class="createQuestions"></div>
-
-            <div class="createLevels"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>BuzzQuizz</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/stylesheet.css" />
+    <link rel="stylesheet" href="./css/mediaQuery.css" />
+  </head>
+  <body>
+    <section class="quizzList">
+      <header class="dsp_flex">
+        <h1>BuzzQuizz</h1>
+      </header>
+      <main class="hidden">
+        <div class="quizz_title dsp_flex hidden">
+          Seus Quizzes<ion-icon
+            data-identifier="create-quizz"
+            name="add-circle"
+          ></ion-icon>
         </div>
-        <script
-            type="module"
-            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-        ></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="./js/script.js"></script>
-    </body>
+        <div class="own_quizz_empty dsp_flex">
+          <p class="own_quizz">
+            Você não criou nenhum <br />
+            quizz ainda :(
+          </p>
+          <button data-identifier="create-quizz" class="create_quizz">
+            Criar Quizz
+          </button>
+        </div>
+        <div
+          data-identifier="user-quizzes"
+          class="quizz_container hidden"
+        ></div>
+        <div class="quizz_title">Todos os Quizzes</div>
+        <div data-identifier="general-quizzes" class="quizz_container"></div>
+      </main>
+    </section>
+    <section class="answerQuizz dsp_flex">
+      <div class="tittle">
+        <div class="opacity dsp_flex">
+          <p>O quão Potterhead é você?</p>
+        </div>
+      </div>
+
+      <div class="card_quizz">
+        <div class="card_header dsp_flex">
+          <p>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</p>
+        </div>
+        <div class="card_answers">
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+        </div>
+      </div>
+      <div class="card_quizz">
+        <div class="card_header dsp_flex">
+          <p>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</p>
+        </div>
+        <div class="card_answers">
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+          <div class="answer">
+            <img
+              src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+            />
+            <p>Gatíneo</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card_result">
+        <div class="card_header dsp_flex">
+          <p>88% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+        </div>
+        <div class="card_content">
+          <img
+            src="https://super.abril.com.br/wp-content/uploads/2016/11/gatinhos-filhotes-reconhecem-a-voz-da-prc3b3pria-mc3a3e.jpg?quality=70&strip=all"
+          />
+          <p>
+            Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito
+            de comida e clique no botão abaixo para usar o vira-tempo e
+            reiniciar este teste.
+          </p>
+        </div>
+      </div>
+
+      <div class="nav dsp_flex">
+        <button class="reset">Reniciar Quizz</button>
+        <button class="home">Voltar pra home</button>
+      </div>
+    </section>
+
+    <div class="createQuiz hidden">
+      <div class="createQuizBasic">
+        <h2>Comece pelo comeco</h2>
+        <div class="createQuizInputs">
+          <input
+            id="quizzNameInput"
+            type="text"
+            placeholder="Titulo do seu quizz"
+          />
+          <input
+            id="quizzImgURLInput"
+            type="url"
+            placeholder="URL da imagem do seu quizz"
+          />
+          <input
+            id="quizzQuestionNumInput"
+            type="number"
+            min="3"
+            placeholder="Quantidade de perguntas do quizz"
+          />
+          <input
+            id="quizzLevelNumInput"
+            type="number"
+            min="2"
+            placeholder="Quantidade de niveis do quizz"
+          />
+        </div>
+        <button class="createButton" onclick="prosseguirParaPerguntas()">
+          Prosseguir para criar perguntas
+        </button>
+      </div>
+
+      <div class="createQuestions"></div>
+
+      <div class="createLevels"></div>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
 </html>
