@@ -83,7 +83,19 @@ function quizListLoad(promise) {
         toggleVisibility(hideThis, [showThis_one, showThis_two]);
     }
 }
+function createQuizzButtonListenersSetup() {
+    document.querySelectorAll(".create_quizz").forEach((button) => {
+        button.addEventListener("click", () => {
+            const quizList = document.querySelector(".quizzList");
+            const createQuiz = document.querySelector(".createQuiz");
+            console.log(quizList);
+            console.log(createQuiz);
+            toggleVisibility([quizList], [createQuiz]);
+        });
+    });
+}
 function startWebsite() {
+    createQuizzButtonListenersSetup();
     const getQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizzes.then(quizListLoad);
 }
