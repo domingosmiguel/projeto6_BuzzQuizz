@@ -74,14 +74,10 @@ function quizListLoad(promise) {
         handleQuizz(quizz);
     });
     if (localUserQuizzIds.length !== 0) {
-        const hideThis = document.querySelector("div.own_quizz_empty").classList.toggle("hidden");
-        const showThis_one = document
-            .querySelector("div.quizz_title:first-of-type")
-            .classList.toggle("hidden");
-        const showThis_two = document
-            .querySelector("div.quizz_container:not(:last-of-type)")
-            .classList.toggle("hidden");
-        toggleVisibility(hideThis, [showThis_one, showThis_two]);
+        const hideThis = document.querySelector("div.own_quizz_empty");
+        const showThis_one = document.querySelector("div.quizz_title:first-of-type");
+        const showThis_two = document.querySelector("div.quizz_container:not(:last-of-type)");
+        toggleVisibility([hideThis], [showThis_one, showThis_two]);
     }
 }
 function createQuizzButtonListenersSetup() {
@@ -89,8 +85,6 @@ function createQuizzButtonListenersSetup() {
         button.addEventListener("click", () => {
             const quizList = document.querySelector(".quizzList");
             const createQuiz = document.querySelector(".createQuiz");
-            console.log(quizList);
-            console.log(createQuiz);
             toggleVisibility([quizList], [createQuiz]);
         });
     });
