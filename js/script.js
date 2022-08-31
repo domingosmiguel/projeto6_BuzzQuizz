@@ -1,3 +1,14 @@
+const cssLoader = document.querySelector("div.loader");
+const quizzListSection = document.querySelector("section.quizzList");
+const emptyUserQuizzContainer = document.querySelector("section.quizzList div.own_quizz_empty");
+const userQuizzTitle = document.querySelector("section.quizzList div.quizz_title:first-of-type");
+const userQuizzContainer = document.querySelector(
+    "section.quizzList div.quizz_container:not(:last-of-type)"
+);
+const serverQuizzContainer = document.querySelector(
+    "section.quizzList div.quizz_container:last-of-type"
+);
+
 let localUserQuizzIds = [];
 
 let quizzTitle;
@@ -33,26 +44,25 @@ function prosseguirParaPerguntas() {
         alert("voce nao preencheu corretamente, preencha e clique novamente!");
     } else {
         questionCreationDisplay();
-        document.querySelector(".createQuizBasic").classList.add('hidden');
-        document.querySelector(".createQuestions").classList.remove('hidden');
+        document.querySelector(".createQuizBasic").classList.add("hidden");
+        document.querySelector(".createQuestions").classList.remove("hidden");
     }
 }
 
 function questionCreationDisplay() {
-    
-    for (let i=0; i<quizzQuestionNum; i++) {
+    for (let i = 0; i < quizzQuestionNum; i++) {
         const template = `<li>
             <div class="perguntaContainer">
-                <p>Pergunta ${i+1}</p>
+                <p>Pergunta ${i + 1}</p>
                 <span class="material-symbols-outlined" id="pergunta${i}Button" onclick="editPergunta()">
                     edit_square
                 </span>
             </div>
-        </li>`
-        document.querySelector('.createQuestions ul').innerHTML = document.querySelector('.createQuestions ul').innerHTML + template;
+        </li>`;
+        document.querySelector(".createQuestions ul").innerHTML =
+            document.querySelector(".createQuestions ul").innerHTML + template;
     }
 }
-
 
 function toggleVisibility(itemsToHide, itemsToShow) {
     itemsToHide.forEach((item) => {
@@ -72,12 +82,10 @@ function renderQuizz(quizzContainer, quizz) {
     quizzContainer.innerHTML += quizzTemplate(quizz.title, quizz.image);
 }
 function handleQuizz(quizz) {
-    const serverQuizzContainer = document.querySelector("div.quizz_container:last-of-type");
-    const locarQuizzContainer = document.querySelector("div.quizz_container:not(:last-of-type)");
     let thisIsALocalQuizz = false;
     localUserQuizzIds.some((localUserQuizzId) => {
         if (localUserQuizzId === quizz.id) {
-            renderQuizz(locarQuizzContainer, quizz);
+            renderQuizz(userQuizzContainer, quizz);
             thisIsALocalQuizz = true;
             return true;
         }
@@ -86,15 +94,13 @@ function handleQuizz(quizz) {
     if (!thisIsALocalQuizz) renderQuizz(serverQuizzContainer, quizz);
 }
 function quizListLoad(promise) {
+    toggleVisibility([cssLoader], [quizzListSection]);
     const quizzes = promise.data;
     quizzes.forEach((quizz) => {
         handleQuizz(quizz);
     });
     if (localUserQuizzIds.length !== 0) {
-        const hideThis = document.querySelector("div.own_quizz_empty");
-        const showThis_one = document.querySelector("div.quizz_title:first-of-type");
-        const showThis_two = document.querySelector("div.quizz_container:not(:last-of-type)");
-        toggleVisibility([hideThis], [showThis_one, showThis_two]);
+        toggleVisibility([emptyUserQuizzContainer], [userQuizzTitle, userQuizzContainer]);
     }
 }
 function createQuizzButtonListenersSetup() {
