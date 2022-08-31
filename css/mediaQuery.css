@@ -6,6 +6,19 @@
     div.quizz_container {
         grid-template-columns: 1fr;
     }
+    div.quizz_container:not(:last-child) {
+        margin-bottom: 38px;
+    }
+    div.own_quizz_empty {
+        margin-top: 31px;
+        margin-bottom: 0px;
+    }
+    div.quizz_title:first-child {
+        margin-top: 34px;
+    }
+    div.quizz_title {
+        justify-content: space-between;
+    }
     div.quizz {
         max-width: 1100px;
     }
