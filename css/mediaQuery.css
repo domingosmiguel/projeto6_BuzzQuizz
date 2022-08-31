@@ -1,0 +1,13 @@
+@media (max-width: 1100px) {
+    main {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+    div.server_quizz {
+        grid-template-columns: 1fr;
+    }
+    div.quizz {
+        max-width: 1100px;
+        margin-bottom: 12px;
+    }
+}
