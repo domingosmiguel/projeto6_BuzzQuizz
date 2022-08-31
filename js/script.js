@@ -235,7 +235,11 @@ function showResult() {
     `;
 
   // scroll to result
-  divQuestions.querySelector(".card_result").scrollIntoView();
+  setInterval(() => {
+    divQuestions
+      .querySelector(".card_result")
+      .scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 2000);
 }
 
 function verifyLevel() {
