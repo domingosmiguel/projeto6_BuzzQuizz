@@ -1,0 +1,130 @@
+/*  
+   =========
+     Fonts
+   =========
+*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/*  
+   =============
+     Variables
+   =============
+*/
+:root {
+    --font: "Roboto", sans-serif;
+    --header-color: #ec362d;
+    --main-color: #fafafa;
+}
+/*  
+   =================
+     Global Styles
+   =================
+*/
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: var(--main-color);
+  font-family: var(--font);
+}
+section {
+    background-color: var(--main-color);
+}
+header {
+    background-color: var(--header-color);
+    width: 100%;
+    height: 69px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+main {
+    max-width: 1052px;
+    margin: 0 auto;
+    background-color: black;
+    height: 80vh;
+}
+.dsp_flex {
+    display: flex;
+}
+h1 {
+    color: white;
+    font-size: 37px;
+    line-height: 43px;
+    font-weight: 700;
+}
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+.createQuizBasic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.createQuizInputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  width: 600px;
+  height: 256px;
+  padding: 20px;
+  box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
+}
+.createQuizInputs input {
+  height: 46px;
+  width: 564px;
+  padding-left: 15px;
+  font-size: 19px;
+  border: solid 1px #BABABA;
+  color: #818181;
+  border-radius: 5px;
+}
+.createQuizInputs input::placeholder{
+  color: #BABABA
+}
+.createQuizInputs input:focus {
+  outline: none !important;
+  border:2px solid #818181;
+}
+.createQuiz h2 {
+  margin-top: 25px;
+  padding: 30px;
+  font-size: 23px;
+  font-weight: 700;
+}
+.createButton {
+  margin: 85px auto 0;
+  height: 54px;
+  width: 370px;
+  background-color: var(--header-color);
+  color: #ffffff;
+  border-radius: 15px;
+  border: none;
+  font-size: 21px;
+  font-weight: 400;
+}
+/*  
+   ==============
+     login Page
+   ==============
+*/
+
+/*  
+   ===============
+     Chat layout
+   ===============
+*/
+
+/*  
+   ============
+     Messages
+   ============
+*/
+
+/*  
+   =============
+     Side Menu
+   =============
+*/
