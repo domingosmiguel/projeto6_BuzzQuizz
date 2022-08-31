@@ -10,14 +10,15 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     </head>
     <body>
+        <header class="dsp_flex">
+            <h1>BuzzQuizz</h1>
+        </header>
         <section class="quizzList">
-            <header class="dsp_flex">
-                <h1>BuzzQuizz</h1>
-            </header>
-            <main class="hidden">
+            <main>
                 <div class="quizz_title dsp_flex hidden">
                     Seus Quizzes<ion-icon
                         data-identifier="create-quizz"
+                        class="create_quizz"
                         name="add-circle"
                     ></ion-icon>
                 </div>
@@ -33,7 +34,7 @@
                 <div data-identifier="general-quizzes" class="quizz_container"></div>
             </main>
         </section>
-        <div class="createQuiz">
+        <section class="createQuiz hidden">
             <div class="createQuizBasic">
                 <h2>Comece pelo comeco</h2>
                 <div class="createQuizInputs">
@@ -71,7 +72,7 @@
             </div>
 
             <div class="createLevels"></div>
-        </div>
+        </section>
         <script
             type="module"
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"

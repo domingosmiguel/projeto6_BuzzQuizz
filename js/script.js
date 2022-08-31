@@ -91,17 +91,23 @@ function quizListLoad(promise) {
         handleQuizz(quizz);
     });
     if (localUserQuizzIds.length !== 0) {
-        const hideThis = document.querySelector("div.own_quizz_empty").classList.toggle("hidden");
-        const showThis_one = document
-            .querySelector("div.quizz_title:first-of-type")
-            .classList.toggle("hidden");
-        const showThis_two = document
-            .querySelector("div.quizz_container:not(:last-of-type)")
-            .classList.toggle("hidden");
-        toggleVisibility(hideThis, [showThis_one, showThis_two]);
+        const hideThis = document.querySelector("div.own_quizz_empty");
+        const showThis_one = document.querySelector("div.quizz_title:first-of-type");
+        const showThis_two = document.querySelector("div.quizz_container:not(:last-of-type)");
+        toggleVisibility([hideThis], [showThis_one, showThis_two]);
     }
 }
+function createQuizzButtonListenersSetup() {
+    document.querySelectorAll(".create_quizz").forEach((button) => {
+        button.addEventListener("click", () => {
+            const quizList = document.querySelector(".quizzList");
+            const createQuiz = document.querySelector(".createQuiz");
+            toggleVisibility([quizList], [createQuiz]);
+        });
+    });
+}
 function startWebsite() {
+    createQuizzButtonListenersSetup();
     const getQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizzes.then(quizListLoad);
 }

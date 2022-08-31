@@ -141,7 +141,7 @@ h1 {
     QuizzList
   =============
 */
-div.hidden {
+.hidden {
     display: none;
 }
 div.quizz_title {
