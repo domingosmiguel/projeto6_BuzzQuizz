@@ -32,10 +32,27 @@ function prosseguirParaPerguntas() {
     ) {
         alert("voce nao preencheu corretamente, preencha e clique novamente!");
     } else {
-        document.querySelector(".createQuizBasic").classList.add("hidden");
-        // qualquer acao que interfira no codigo inteiro deve ser feita aqui
+        questionCreationDisplay();
+        document.querySelector(".createQuizBasic").classList.add('hidden');
+        document.querySelector(".createQuestions").classList.remove('hidden');
     }
 }
+
+function questionCreationDisplay() {
+    
+    for (let i=0; i<quizzQuestionNum; i++) {
+        const template = `<li>
+            <div class="perguntaContainer">
+                <p>Pergunta ${i+1}</p>
+                <span class="material-symbols-outlined" id="pergunta${i}Button" onclick="editPergunta()">
+                    edit_square
+                </span>
+            </div>
+        </li>`
+        document.querySelector('.createQuestions ul').innerHTML = document.querySelector('.createQuestions ul').innerHTML + template;
+    }
+}
+
 
 function toggleVisibility(itemsToHide, itemsToShow) {
     itemsToHide.forEach((item) => {

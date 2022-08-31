@@ -61,14 +61,15 @@ h1 {
     display: none;
     visibility: hidden;
 }
-.createQuizBasic {
+.createQuizBasic, .createQuestions {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: fixed;
     width: 100%;
-    top: 60px;
+    top: 85px;
     z-index: 2;
+    max-height: 85%;
 }
 .createQuizInputs {
     display: flex;
@@ -98,7 +99,6 @@ h1 {
     border: 2px solid #818181;
 }
 .createQuiz h2 {
-    margin-top: 25px;
     padding: 30px;
     font-size: 23px;
     font-weight: 700;
@@ -106,6 +106,7 @@ h1 {
 .createButton {
     margin: 85px auto 0;
     height: 54px;
+    padding: 10px 20px;
     width: 370px;
     background-color: var(--header-color);
     color: #ffffff;
@@ -114,6 +115,27 @@ h1 {
     font-size: 21px;
     font-weight: 400;
 }
+.createQuestions .createButton {
+    
+}
+.perguntaContainer {
+    display: flex;
+    width: 601px;
+    height: 74px;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin: 10px auto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.createQuestions ul {
+    overflow-y: scroll;
+}
+.createQuestions ul::-webkit-scrollbar {
+    display: none;
+  }
 /*  
   =============
     QuizzList
