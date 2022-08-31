@@ -21,6 +21,7 @@
 */
 section {
     background-color: var(--main-color);
+    height: 100vh;
 }
 header {
     background-color: var(--header-color);
@@ -34,7 +35,7 @@ main {
     max-width: 1052px;
     margin: 0 auto;
     background-color: black;
-    height: 80vh;
+    height: calc(100vh - 69px);
 }
 .dsp_flex {
     display: flex;
