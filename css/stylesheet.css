@@ -224,12 +224,13 @@ div.quizz p {
 .answerQuizz {
   flex-direction: column;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .answerQuizz .tittle {
   height: 227px;
   width: 100%;
-  background-color: red;
+  background-size: cover;
 }
 
 .answerQuizz .opacity {
@@ -261,19 +262,11 @@ div.quizz p {
 }
 
 .card_header {
-  height: 135px;
+  height: 85px;
   width: 100%;
 
   justify-content: center;
   align-items: center;
-}
-
-.card_quizz:nth-child(2) .card_header {
-  background-color: #434ca0;
-}
-
-.card_quizz:nth-child(3) .card_header {
-  background-color: #a0438d;
 }
 
 .card_header p {
@@ -352,6 +345,22 @@ div.quizz p {
 
   font-size: 16px;
   color: #818181;
+}
+
+.answer.checked {
+  opacity: 60%;
+}
+
+.answer.clickChecked {
+  opacity: 100% !important;
+}
+
+.answer.checked.true {
+  color: #009c22;
+}
+
+.answer.checked.false {
+  color: #ff4b4b;
 }
 
 /*  
