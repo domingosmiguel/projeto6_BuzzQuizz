@@ -31,6 +31,11 @@ const isValidUrl = (urlInput) => {
   }
 };
 
+// funcao para teste de #HEX (usa regex e test para retornar um boolean verdadeiro caso a string seja uma hex valida, e falso caso nao seja)
+function isHex(color) {
+    return (/#[0-9A-F]{6}/i.test(color));
+}
+
 //funcao que testa os valores inseridos e atribui os valores as variaveis globais que vao ser usadas para criar o objeto para enviar
 // para a API e criar o Quizz
 function prosseguirParaPerguntas() {
@@ -100,7 +105,7 @@ function editPergunta(pergunta) {
             <input class="answerIncorret" id="incorrectAns3${perguntaNum}" type="text" placeholder="Resposta incorreta 3" />
             <input class="answerIncorretBackground" id="incorrectAnsBg3${perguntaNum}" type="url" placeholder="URL da imagem" /> 
         </div>
-    </div>
+   </div>
     `   
 }
 // validate inputs and creates questions object
@@ -124,6 +129,9 @@ function validateAnswerInputs() {
         if (answerText == "" || answerCorrect == "" || answerIncorrect1 == "" || answerIncorrect2 == "" || answerIncorrect3 == "") {
         alert('favor preencher corretamente')
         return
+        }
+        if (isHex(answerBackground) === false) {
+            alert('voce nao inseriu uma cor HEX valida para o background (ex: #FFFFFF)')
         }
         const perguntaObj = {
             title: answerText,
