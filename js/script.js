@@ -41,21 +41,84 @@ function prosseguirParaPerguntas() {
     quizzQuestionNum = document.querySelector("#quizzQuestionNumInput").value;
     quizzLevelNum = document.querySelector("#quizzLevelNumInput").value;
 
-    if (quizzTitle.length > 65 || quizzTitle.length < 20) {
-        alert("insira um titulo entre 25 e 60 caracteres e clique novamente!");
-    } else if (
-        quizzImgURL == "" ||
-        quizzQuestionNum == "" ||
-        quizzLevelNum == "" ||
-        isValidUrl(quizzImgURL) === false
-    ) {
-        alert("voce nao preencheu corretamente, preencha e clique novamente!");
-    } else {
+    const isValidTittle = verifyTittle(quizzTitle);
+    const isValidURL = verifyURL(quizzImgURL);
+    const isValidQuestionNum = verifyQuestionsNumber(quizzQuestionNum);
+    const isValidLevelNum = verifyLevelsNumber(quizzLevelNum);
+
+    if (isValidTittle && isValidURL && isValidQuestionNum && isValidLevelNum) {
         questionCreationDisplay();
         document.querySelector(".createQuizBasic").classList.add("hidden");
         document.querySelector(".createQuestions").classList.remove("hidden");
     }
 }
+
+// function check tittle
+function verifyTittle(tittle) {
+    const inputTittle = document.querySelector("#quizzNameInput");
+    const tittleLabel = document.querySelector("#quizzNameLabel");
+
+    if (tittle.length > 65 || tittle.length < 20) {
+        tittleLabel.classList.remove("hidden");
+        inputTittle.classList.add("validationInput");
+        return false;
+    } else {
+        tittleLabel.classList.add("hidden");
+        inputTittle.classList.remove("validationInput");
+    }
+
+    return true;
+}
+
+// function check url
+function verifyURL(URL) {
+    const inputURL = document.querySelector("#quizzImgURLInput");
+    const urlLabel = document.querySelector("#quizzURLLabel");
+
+    if (isValidUrl(URL) === false) {
+        urlLabel.classList.remove("hidden");
+        inputURL.classList.add("validationInput");
+        return false;
+    } else {
+        urlLabel.classList.add("hidden");
+        inputURL.classList.remove("validationInput");
+    }
+    return true;
+}
+
+// function check number of questions
+function verifyQuestionsNumber(number) {
+    const inputQuestionNum = document.querySelector("#quizzQuestionNumInput");
+    const questionNumLabel = document.querySelector("#quizzQuestionNumLabel");
+
+    if (number < 3) {
+        questionNumLabel.classList.remove("hidden");
+        inputQuestionNum.classList.add("validationInput");
+        return false;
+    } else {
+        questionNumLabel.classList.add("hidden");
+        inputQuestionNum.classList.remove("validationInput");
+    }
+    return true;
+}
+
+// function check number of levels
+function verifyLevelsNumber(number) {
+    const inputLevelNum = document.querySelector("#quizzLevelNumInput");
+    const levelNumLabel = document.querySelector("#quizzLevelNumLabel");
+
+    if (number < 2) {
+        levelNumLabel.classList.remove("hidden");
+        inputLevelNum.classList.add("validationInput");
+        return false;
+    } else {
+        levelNumLabel.classList.add("hidden");
+        inputLevelNum.classList.remove("validationInput");
+    }
+
+    return true;
+}
+
 // creates a display with the number of questions selected to edit
 function questionCreationDisplay() {
     for (let i = 0; i < quizzQuestionNum; i++) {
@@ -112,8 +175,8 @@ function validateAnswerInputs() {
     for (let i = 0; i < quizzQuestionNum; i++) {
         let answerText = document.querySelector(`#questionText${i + 1}`).value;
         let answerBackground = document.querySelector(`#questionBackground${i + 1}`).value;
-        let answerCorrect = document.querySelector(`#answerQuestionCorret${i + 1}`).value;
-        let answerCorrectBackgroud = document.querySelector(
+        let answerCorrect = document.querySelector(`#answerQuestionCorrect${i + 1}`).value;
+        let answerCorrectBackground = document.querySelector(
             `#answerCorrectBackground${i + 1}`
         ).value;
         let answerIncorrect1 = document.querySelector(`#incorrectAns1${i + 1}`).value;
@@ -123,7 +186,7 @@ function validateAnswerInputs() {
         let answerIncorrect2Background = document.querySelector(`#incorrectAnsBg2${i + 1}`).value;
         let answerIncorrect3Background = document.querySelector(`#incorrectAnsBg3${i + 1}`).value;
         if (
-            isValidUrl(answerCorrectBackgroud) === false ||
+            isValidUrl(answerCorrectBackground) === false ||
             isValidUrl(answerIncorrect1Background) === false ||
             isValidUrl(answerIncorrect2Background) === false ||
             isValidUrl(answerIncorrect3Background) === false
@@ -155,7 +218,7 @@ function validateAnswerInputs() {
             answers: [
                 {
                     text: answerCorrect,
-                    image: answerCorrectBackgroud,
+                    image: answerCorrectBackground,
                     isCorrectAnswer: true,
                 },
                 {
@@ -204,14 +267,24 @@ function editLevel(level) {
     levelNum = Number(levelNum.replace("pergunta", ""));
     level.innerHTML =
         level.innerHTML +
-        `
-    <div class="levelCreationSupport">
-        <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
-        <input id="input2Level${levelNum}" type="number" min="0" max="100" placeholder="% de acerto minima" />
-        <input id="input3Level${levelNum}" type="url" placeholder="URL da imagem do nivel" />
-        <input id="input4Level${levelNum}" type="text" placeholder="Descricao do nivel" />
-    </div>
-    `;
+        (
+            <div class="levelCreationSupport">
+                <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
+                <input
+                    id="input2Level${levelNum}"
+                    type="number"
+                    min="0"
+                    max="100"
+                    placeholder="% de acerto minima"
+                />
+                <input
+                    id="input3Level${levelNum}"
+                    type="url"
+                    placeholder="URL da imagem do nivel"
+                />
+                <input id="input4Level${levelNum}" type="text" placeholder="Descricao do nivel" />
+            </div>
+        );
 }
 /*
 function validateLevelInputs() {
@@ -366,17 +439,20 @@ function selectedQuizzLoad(promise) {
 
 // template question
 function templateQuestion(question) {
-    let allAnswers = "";
+    let allAnswers = [];
     question.answers.forEach((answer) => {
-        allAnswers += `
+        allAnswers.push(`
         <div class="answer ${answer.isCorrectAnswer}" onClick="verifyAnswer(this)">
             <img
                 src="${answer.image}"
             />
             <p>${answer.text}</p>
         </div>
-    `;
+    `);
     });
+
+    // random order answers
+    allAnswers = randomAnswers(allAnswers);
 
     const questionHTML = ` 
     <div class="card_quizz">
@@ -392,8 +468,12 @@ function templateQuestion(question) {
     divQuestions.innerHTML += questionHTML;
 }
 
-// verify answer
+// random order answers
+function randomAnswers(answers) {
+    return answers.sort(() => Math.random() - 0.5);
+}
 
+// verify answer
 function verifyAnswer(answer) {
     answer.classList.add("clickChecked");
 
@@ -427,6 +507,7 @@ function verifyAnswer(answer) {
 // show result
 function showResult() {
     const level = verifyLevel();
+    console.log(level);
     divQuestions.innerHTML += `
     <div class="card_result">
         <div class="card_header dsp_flex">
@@ -460,7 +541,7 @@ function verifyLevel() {
     const percentageLevel = (correctAnswers / numberQuestions) * 100;
     let level;
     quizz.levels.forEach((lvl) => {
-        if (percentageLevel > lvl.minValue) {
+        if (percentageLevel >= lvl.minValue) {
             level = lvl;
         }
     });
