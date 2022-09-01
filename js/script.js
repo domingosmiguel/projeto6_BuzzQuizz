@@ -267,8 +267,7 @@ function editLevel(level) {
     levelNum = Number(levelNum.replace("pergunta", ""));
     level.innerHTML =
         level.innerHTML +
-        (
-            <div class="levelCreationSupport">
+        `<div class="levelCreationSupport">
                 <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
                 <input
                     id="input2Level${levelNum}"
@@ -283,8 +282,7 @@ function editLevel(level) {
                     placeholder="URL da imagem do nivel"
                 />
                 <input id="input4Level${levelNum}" type="text" placeholder="Descricao do nivel" />
-            </div>
-        );
+            </div>`;
 }
 /*
 function validateLevelInputs() {
@@ -316,7 +314,7 @@ function validateLevelInputs() {
     
 }
 */
-function editQuizz() {
+function editQuizz(id) {
     console.log(`editou ${id}`);
 }
 function deleteQuizz(id) {
