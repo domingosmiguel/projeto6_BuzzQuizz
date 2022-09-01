@@ -160,14 +160,14 @@ function toggleVisibility(itemsToHide, itemsToShow) {
         item.classList.remove("hidden");
     });
 }
-function quizzTemplate(title, image) {
-    return `<div data-identifier="quizz-card" class="quizz">
+function quizzTemplate(title, image, id) {
+    return `<div data-identifier="quizz-card" class="quizz" onclick="loadSelectedQuizz(${id})">
                 <img src="${image}" alt="quizz_image">
                 <p class="dsp_flex">${title}</p>
             </div>`;
 }
 function renderQuizz(quizzContainer, quizz) {
-    quizzContainer.innerHTML += quizzTemplate(quizz.title, quizz.image);
+    quizzContainer.innerHTML += quizzTemplate(quizz.title, quizz.image, quizz.id);
 }
 function handleQuizz(quizz) {
     let thisIsALocalQuizz = false;
@@ -204,3 +204,152 @@ function startWebsite() {
     getQuizzes.then(quizListLoad);
 }
 startWebsite();
+
+// Question Page
+
+const divQuestions = document.querySelector("section.answerQuizz");
+let numberQuestions = 0;
+let verifiedQuestions = 0;
+let correctAnswers = 0;
+let quizz;
+
+// load selected quizz by ID.
+function loadSelectedQuizz(id) {
+    toggleVisibility([quizzListSection], [cssLoader]);
+
+    const getSelectedQuizz = axios.get(
+        `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`
+    );
+    getSelectedQuizz.then(selectedQuizzLoad);
+}
+
+// adding on HTML quizz selected by ID.
+function selectedQuizzLoad(promise) {
+    console.log(promise.data);
+    toggleVisibility([cssLoader], [divQuestions]);
+    quizz = promise.data;
+    numberQuestions = quizz.questions.length;
+
+    // tittle
+    const tittle = document.querySelector(".answerQuizz .tittle p");
+    tittle.innerHTML = quizz.title;
+
+    // img tittle
+    const imgTittle = document.querySelector(".answerQuizz .tittle");
+    imgTittle.style.background = `url('${quizz.image}')`;
+
+    // questions
+    const questions = quizz.questions;
+    questions.forEach(templateQuestion);
+}
+
+// template question
+function templateQuestion(question) {
+    let allAnswers = "";
+    question.answers.forEach((answer) => {
+        allAnswers += `
+        <div class="answer ${answer.isCorrectAnswer}" onClick="verifyAnswer(this)">
+            <img
+                src="${answer.image}"
+            />
+            <p>${answer.text}</p>
+        </div>
+    `;
+    });
+
+    const questionHTML = ` 
+    <div class="card_quizz">
+            <div style="background-color: ${question.color}" class="card_header dsp_flex">
+                <p>${question.title}</p>
+            </div>
+            <div class="card_answers">
+                ${allAnswers}
+            </div>
+    </div>
+    `;
+
+    divQuestions.innerHTML += questionHTML;
+}
+
+// verify answer
+
+function verifyAnswer(answer) {
+    answer.classList.add("clickChecked");
+
+    // if answer is correct
+    if (answer.classList.contains("true")) correctAnswers++;
+
+    const card = answer.parentNode;
+    const allAnswers = card.querySelectorAll(".answer");
+    allAnswers.forEach((res) => {
+        res.classList.add("checked");
+        res.removeAttribute("onClick");
+    });
+
+    verifiedQuestions++;
+    if (verifiedQuestions === numberQuestions) {
+        showResult();
+    }
+}
+
+// show result
+function showResult() {
+    const level = verifyLevel();
+    divQuestions.innerHTML += `
+    <div class="card_result">
+        <div class="card_header dsp_flex">
+            <p>${level.title}</p>
+        </div>
+        <div class="card_content">
+            <img
+            src="${level.image}"
+            />
+            <p>
+            ${level.text}
+            </p>
+        </div>
+    </div>
+
+    <div class="nav dsp_flex">
+        <button onClick="reloadQuizz()" class="reset">Reniciar Quizz</button>
+        <button onClick="loadHome()" class="home">Voltar pra home</button>
+    </div>
+    `;
+
+    // scroll to result
+    setInterval(() => {
+        divQuestions
+            .querySelector(".card_result")
+            .scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 2000);
+}
+
+function verifyLevel() {
+    const percentageLevel = (correctAnswers / numberQuestions) * 100;
+    let level;
+    quizz.levels.forEach((lvl) => {
+        if (percentageLevel > lvl.minValue) {
+            level = lvl;
+        }
+    });
+
+    return level;
+}
+
+function reloadQuizz() {
+    divQuestions.innerHTML = `
+  <div class="tittle">
+    <div class="opacity dsp_flex">
+        <p></p>
+    </div>
+  </div>
+ `;
+    loadSelectedQuizz();
+}
+
+function loadHome() {
+    toggleVisibility([divQuestions], [cssLoader]);
+    startWebsite();
+}
+
+// loadSelectedQuizz();
