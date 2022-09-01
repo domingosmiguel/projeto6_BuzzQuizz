@@ -10,7 +10,7 @@ const serverQuizzContainer = document.querySelector(
     "section.quizzList div.quizz_container:last-of-type"
 );
 
-let localUserQuizzIds = [10535];
+let localUserQuizzIds = [10590, 10589];
 
 let quizzTitle;
 let quizzImgURL;
@@ -165,11 +165,18 @@ function validateAnswerInputs() {
     }
     document.querySelector(".createQuestions").classList.add("hidden");
 }
-function editQuizz() {
-    console.log("editou");
+function editQuizz(id) {
+    console.log(`editou ${id}`);
 }
-function deleteQuizz() {
-    console.log("apagou");
+function deleteQuizz(id) {
+    console.log(`apagou ${id}`);
+    const answer = confirm(`Deseja realmente apagar este Quizz?`);
+    console.log(answer);
+    // if (answer === true) {
+    //     const deleteRequest = axios.delete(
+    //         `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`
+    //     );
+    // }
 }
 function toggleVisibility(itemsToHide, itemsToShow) {
     itemsToHide.forEach((item) => {
@@ -190,8 +197,8 @@ function userQuizzTemplate(title, image, id) {
                 <img src="${image}" alt="quizz_image">
                 <p class="dsp_flex">${title}</p> 
                 <div class="editDelete_Card dsp_flex">
-                    <span class="material-symbols-outlined"> edit_square </span>
-                    <span class="material-symbols-outlined"> delete </span>
+                    <span class="material-symbols-outlined" onclick="editQuizz(${id});event.stopPropagation()"> edit_square </span>
+                    <span class="material-symbols-outlined" onclick="deleteQuizz(${id});event.stopPropagation()"> delete </span>
                 </div>
             </div>`;
 }
@@ -212,6 +219,7 @@ function handleQuizz(quizz) {
 }
 function quizListLoad(promise) {
     console.log(promise.data);
+    userQuizzContainer.innerHTML = "";
     toggleVisibility([cssLoader], [quizzListSection]);
     const quizzes = promise.data;
     quizzes.forEach((quizz) => {
