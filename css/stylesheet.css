@@ -72,24 +72,25 @@ h1 {
 .createQuizInputs {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
   width: 600px;
   height: 296px;
   padding: 20px;
+  box-sizing: content-box;
   box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
 }
 .createQuizInputs input,
 .perguntaContainer input,
 .levelContainer input {
   height: 46px;
-  width: 564px;
+  width: 100%;
   padding-left: 15px;
   font-size: 19px;
   border: solid 1px #bababa;
   color: #818181;
   border-radius: 5px;
+  margin-bottom: 3px;
 }
 .createQuizInputs input::placeholder,
 .perguntaContainer input::placeholder {
@@ -101,14 +102,12 @@ h1 {
   border: 2px solid #818181;
 }
 
-.createQuizInputs .validationLabel {
+.validationLabel {
   font-size: 16px;
   color: #ec362d;
-  align-self: self-start;
-  margin: 5px 0;
 }
 
-.createQuizInputs .validationInput {
+.validationInput {
   background: #ffe9e9;
 }
 
@@ -157,6 +156,11 @@ h1 {
   justify-content: space-between;
   align-items: center;
 }
+
+.answerCreationSupport {
+  width: 100%;
+}
+
 .levelCreationSupport {
   margin-top: 20px;
 }
@@ -373,6 +377,7 @@ div.quizz p {
 .answerQuizz .tittle {
   height: 227px;
   width: 100%;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 

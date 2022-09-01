@@ -125,13 +125,11 @@ function verifyLevelsNumber(number) {
 
 // creates a display with the number of questions selected to edit
 function questionCreationDisplay() {
-  for (let i = 0; i < quizzQuestionNum; i++) {
+  for (let i = 1; i <= quizzQuestionNum; i++) {
     const template = `<li>
-            <div class="perguntaContainer" onclick="editPergunta(this)" id="pergunta${
-              i + 1
-            }">
+            <div class="perguntaContainer" onclick="editPergunta(this)" id="pergunta${i}">
                 <div class="perguntaHeader">
-                    <p>Pergunta ${i + 1}</p>
+                    <p>Pergunta ${i}</p>
                     <span class="material-symbols-outlined" id="pergunta${i}Button">
                         edit_square
                     </span>
@@ -153,121 +151,269 @@ function editPergunta(pergunta) {
    <div class="answerCreationSupport">
         <div class="answerMain">
             <input id="questionText${perguntaNum}" type="text" placeholder="Texto da pergunta" />
+            <p class="validationLabel hidden" id="questionTextLabel${perguntaNum}">O texto da pergunta deve ter no mínimo 20 caracteres</p>
             <input id="questionBackground${perguntaNum}" type="text" placeholder="Cor de fundo da pergunta" />
+            <p class="validationLabel hidden" id="questionBackgroundLabel${perguntaNum}">A cor da pergunta deve ser uma cor em hexadecimal</p>
         </div>
     <p>Resposta correta</p>
         <div class="correctAnswer">
-            <input id="answerQuestionCorret${perguntaNum}" type="text" placeholder="Resposta correta" />
+            <input id="answerQuestionCorrect${perguntaNum}" type="text" placeholder="Resposta correta" />
+            <p class="validationLabel hidden" id="answerQuestionCorrectLabel${perguntaNum}">O texto da resposta não pode ser vazio</p>
             <input id="answerCorrectBackground${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <p class="validationLabel hidden" id="answerCorrectBackgroundLabel${perguntaNum}">Formato da URL inválido</p>
         </div>
     <p>Respostas incorretas</p>
         <div class="incorrectAnswer">
-            <input class="answerIncorret" id="incorrectAns1${perguntaNum}" type="text" placeholder="Resposta incorreta 1" />
-            <input class="answerIncorretBackground" id="incorrectAnsBg1${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <input class="answerIncorrect" id="incorrectAns1${perguntaNum}" type="text" placeholder="Resposta incorreta 1" />
+            <p class="validationLabel hidden" id="answerIncorrectLabel1${perguntaNum}">O texto da resposta não pode ser vazio</p>
+            <input class="answerIncorrectBackground" id="incorrectAnsBg1${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <p class="validationLabel hidden" id="incorrectAnsBgLabel1${perguntaNum}">Formato da URL inválido</p>
         </div>
         <div class="incorrectAnswer">
-            <input class="answerIncorret" id="incorrectAns2${perguntaNum}" type="text" placeholder="Resposta incorreta 2" />
-            <input class="answerIncorretBackground" id="incorrectAnsBg2${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <input class="answerIncorrect" id="incorrectAns2${perguntaNum}" type="text" placeholder="Resposta incorreta 2" />
+            <p class="validationLabel hidden" id="answerIncorrectLabel2${perguntaNum}">O texto da resposta não pode ser vazio</p>
+            <input class="answerIncorrectBackground" id="incorrectAnsBg2${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <p class="validationLabel hidden" id="incorrectAnsBgLabel2${perguntaNum}">Formato da URL inválido</p>
         </div>
         <div class="incorrectAnswer">
-            <input class="answerIncorret" id="incorrectAns3${perguntaNum}" type="text" placeholder="Resposta incorreta 3" />
-            <input class="answerIncorretBackground" id="incorrectAnsBg3${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <input class="answerIncorrect" id="incorrectAns3${perguntaNum}" type="text" placeholder="Resposta incorreta 3" />
+            <p class="validationLabel hidden" id="answerIncorrectLabel3${perguntaNum}">O texto da resposta não pode ser vazio</p>
+            <input class="answerIncorrectBackground" id="incorrectAnsBg3${perguntaNum}" type="url" placeholder="URL da imagem" /> 
+            <p class="validationLabel hidden" id="incorrectAnsBgLabel3${perguntaNum}">Formato da URL inválido</p>
         </div>
    </div>
     `;
 }
 // validate inputs and creates questions object
 function validateAnswerInputs() {
-  for (let i = 0; i < quizzQuestionNum; i++) {
-    let answerText = document.querySelector(`#questionText${i + 1}`).value;
+  for (let i = 1; i <= quizzQuestionNum; i++) {
+    let answerText = document.querySelector(`#questionText${i}`).value;
     let answerBackground = document.querySelector(
-      `#questionBackground${i + 1}`
+      `#questionBackground${i}`
     ).value;
     let answerCorrect = document.querySelector(
-      `#answerQuestionCorrect${i + 1}`
+      `#answerQuestionCorrect${i}`
     ).value;
     let answerCorrectBackground = document.querySelector(
-      `#answerCorrectBackground${i + 1}`
+      `#answerCorrectBackground${i}`
     ).value;
-    let answerIncorrect1 = document.querySelector(
-      `#incorrectAns1${i + 1}`
-    ).value;
-    let answerIncorrect2 = document.querySelector(
-      `#incorrectAns2${i + 1}`
-    ).value;
-    let answerIncorrect3 = document.querySelector(
-      `#incorrectAns3${i + 1}`
-    ).value;
+    let answerIncorrect1 = document.querySelector(`#incorrectAns1${i}`).value;
+    let answerIncorrect2 = document.querySelector(`#incorrectAns2${i}`).value;
+    let answerIncorrect3 = document.querySelector(`#incorrectAns3${i}`).value;
+
     let answerIncorrect1Background = document.querySelector(
-      `#incorrectAnsBg1${i + 1}`
+      `#incorrectAnsBg1${i}`
     ).value;
     let answerIncorrect2Background = document.querySelector(
-      `#incorrectAnsBg2${i + 1}`
+      `#incorrectAnsBg2${i}`
     ).value;
     let answerIncorrect3Background = document.querySelector(
-      `#incorrectAnsBg3${i + 1}`
+      `#incorrectAnsBg3${i}`
     ).value;
+
+    // verify
+    const isValidAnswerCorrectBackground = verifyAnswerCorrectBackground(
+      answerCorrectBackground,
+      i
+    );
+    const isValidAnswerIncorrectBackground1 = verifyAnswerIncorrectBackground(
+      answerIncorrect1Background,
+      i,
+      1
+    );
+    const isValidAnswerIncorrectBackground2 = verifyAnswerIncorrectBackground(
+      answerIncorrect2Background,
+      i,
+      2
+    );
+    const isValidAnswerIncorrectBackground3 = verifyAnswerIncorrectBackground(
+      answerIncorrect3Background,
+      i,
+      3
+    );
+
+    const isValidTittleAnswer = verifyTittleAnswer(answerText, i);
+    const isValidBackgroundAnswer = verifyBackgroundAnswer(answerBackground, i);
+
+    const isValidTextCorrectAnswer = verifyTextCorrectAnswer(answerCorrect, i);
+
+    const isValidAnswerIncorrectText1 = verifyAnswerIncorrectText(
+      answerIncorrect1,
+      i,
+      1
+    );
+    const isValidAnswerIncorrectText2 = verifyAnswerIncorrectText(
+      answerIncorrect2,
+      i,
+      2
+    );
+    const isValidAnswerIncorrectText3 = verifyAnswerIncorrectText(
+      answerIncorrect3,
+      i,
+      3
+    );
+
     if (
-      isValidUrl(answerCorrectBackground) === false ||
-      isValidUrl(answerIncorrect1Background) === false ||
-      isValidUrl(answerIncorrect2Background) === false ||
-      isValidUrl(answerIncorrect3Background) === false
+      isValidAnswerCorrectBackground &&
+      isValidAnswerIncorrectBackground1 &&
+      isValidAnswerIncorrectBackground2 &&
+      isValidAnswerIncorrectBackground3 &&
+      isValidTittleAnswer &&
+      isValidBackgroundAnswer &&
+      isValidTextCorrectAnswer &&
+      isValidAnswerIncorrectText1 &&
+      isValidAnswerIncorrectText2 &&
+      isValidAnswerIncorrectText3
     ) {
-      alert("alguma de suas URLs estao com problema!");
-      return;
+      const perguntaObj = {
+        title: answerText,
+        color: answerBackground,
+        answers: [
+          {
+            text: answerCorrect,
+            image: answerCorrectBackground,
+            isCorrectAnswer: true,
+          },
+          {
+            text: answerIncorrect1,
+            image: answerIncorrect1Background,
+            isCorrectAnswer: false,
+          },
+          {
+            text: answerIncorrect2,
+            image: answerIncorrect2Background,
+            isCorrectAnswer: false,
+          },
+          {
+            text: answerIncorrect3,
+            image: answerIncorrect3Background,
+            isCorrectAnswer: false,
+          },
+        ],
+      };
+      questionsArray.push(perguntaObj);
+
+      levelCreationDisplay();
+      document.querySelector(".createQuestions").classList.add("hidden");
+      document.querySelector(".createLevels").classList.remove("hidden");
     }
-    if (
-      answerText == "" ||
-      answerCorrect == "" ||
-      answerIncorrect1 == "" ||
-      answerIncorrect2 == "" ||
-      answerIncorrect3 == ""
-    ) {
-      alert("favor preencher corretamente");
-      return;
-    }
-    if (isHex(answerBackground) === false) {
-      alert(
-        "voce nao inseriu uma cor HEX valida para o background (ex: #FFFFFF)"
-      );
-      return;
-    }
-    if (answerText.length < 21) {
-      alert("sua pergunta deve ter pelo menos 20 caracteres!");
-      return;
-    }
-    const perguntaObj = {
-      title: answerText,
-      color: answerBackground,
-      answers: [
-        {
-          text: answerCorrect,
-          image: answerCorrectBackground,
-          isCorrectAnswer: true,
-        },
-        {
-          text: answerIncorrect1,
-          image: answerIncorrect1Background,
-          isCorrectAnswer: false,
-        },
-        {
-          text: answerIncorrect2,
-          image: answerIncorrect2Background,
-          isCorrectAnswer: false,
-        },
-        {
-          text: answerIncorrect3,
-          image: answerIncorrect3Background,
-          isCorrectAnswer: false,
-        },
-      ],
-    };
-    questionsArray.push(perguntaObj);
   }
-  levelCreationDisplay();
-  document.querySelector(".createQuestions").classList.add("hidden");
-  document.querySelector(".createLevels").classList.remove("hidden");
 }
+
+//verify answer text
+function verifyTextCorrectAnswer(answerText, i) {
+  const answerQuestionCorrectLabel = document.querySelector(
+    `#answerQuestionCorrectLabel${i}`
+  );
+  const answerQuestionCorrectInput = document.querySelector(
+    `#answerQuestionCorrect${i}`
+  );
+  if (answerText === "") {
+    answerQuestionCorrectLabel.classList.remove("hidden");
+    answerQuestionCorrectInput.classList.add("validationInput");
+    return false;
+  } else {
+    answerQuestionCorrectLabel.classList.add("hidden");
+    answerQuestionCorrectInput.classList.remove("validationInput");
+  }
+  return true;
+}
+
+// verify answer background
+function verifyAnswerCorrectBackground(answerCorrectBackground, i) {
+  const answerQuestionCorrectLabel = document.querySelector(
+    `#answerCorrectBackgroundLabel${i}`
+  );
+  const answerQuestionCorrectInput = document.querySelector(
+    `#answerCorrectBackground${i}`
+  );
+  if (isValidUrl(answerCorrectBackground) === false) {
+    answerQuestionCorrectLabel.classList.remove("hidden");
+    answerQuestionCorrectInput.classList.add("validationInput");
+    return false;
+  } else {
+    answerQuestionCorrectLabel.classList.add("hidden");
+    answerQuestionCorrectInput.classList.remove("validationInput");
+  }
+  return true;
+}
+
+// verify incorrect answer text
+function verifyAnswerIncorrectText(answerIncorrectText, i, numQuestion) {
+  const answerQuestionIncorrectTextLabel = document.querySelector(
+    `#answerIncorrectLabel${numQuestion}${i}`
+  );
+  const answerQuestionIncorrectTextInput = document.querySelector(
+    `#incorrectAns${numQuestion}${i}`
+  );
+  if (answerIncorrectText === "") {
+    answerQuestionIncorrectTextLabel.classList.remove("hidden");
+    answerQuestionIncorrectTextInput.classList.add("validationInput");
+    return false;
+  } else {
+    answerQuestionIncorrectTextLabel.classList.add("hidden");
+    answerQuestionIncorrectTextInput.classList.remove("validationInput");
+  }
+  return true;
+}
+
+// verify incorrect answer background
+function verifyAnswerIncorrectBackground(
+  answerIncorrectBackground,
+  i,
+  numQuestion
+) {
+  const answerQuestionIncorrectLabel = document.querySelector(
+    `#incorrectAnsBgLabel${numQuestion}${i}`
+  );
+  const answerQuestionIncorrectInput = document.querySelector(
+    `#incorrectAnsBg${numQuestion}${i}`
+  );
+  if (isValidUrl(answerIncorrectBackground) === false) {
+    answerQuestionIncorrectLabel.classList.remove("hidden");
+    answerQuestionIncorrectInput.classList.add("validationInput");
+  } else {
+    answerQuestionIncorrectLabel.classList.add("hidden");
+    answerQuestionIncorrectInput.classList.remove("validationInput");
+  }
+}
+
+// verify tittle question
+function verifyTittleAnswer(answerText, i) {
+  const questionTextLabel = document.querySelector(`#questionTextLabel${i}`);
+  const questionTextInput = document.querySelector(`#questionText${i}`);
+
+  if (answerText.length < 20) {
+    questionTextLabel.classList.remove("hidden");
+    questionTextInput.classList.add("validationInput");
+    return false;
+  } else {
+    questionTextLabel.classList.add("hidden");
+    questionTextInput.classList.remove("validationInput");
+  }
+  return true;
+}
+
+// verify color question
+function verifyBackgroundAnswer(answerBackground, i) {
+  const questionBackgroundLabel = document.querySelector(
+    `#questionBackgroundLabel${i}`
+  );
+  const questionBackgroundtInput = document.querySelector(
+    `#questionBackground${i}`
+  );
+
+  if (isHex(answerBackground) === false) {
+    questionBackgroundLabel.classList.remove("hidden");
+    questionBackgroundtInput.classList.add("validationInput");
+    return false;
+  } else {
+    questionBackgroundLabel.classList.add("hidden");
+    questionBackgroundtInput.classList.remove("validationInput");
+  }
+  return true;
+}
+
 // creates a display with the number of levels selected to edit
 function levelCreationDisplay() {
   for (let i = 0; i < quizzLevelNum; i++) {
