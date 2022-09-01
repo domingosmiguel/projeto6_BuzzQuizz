@@ -469,9 +469,9 @@ div.quizz p {
 .nav button.home {
     border: none;
     border-radius: 15px;
-
     font-size: 16px;
     color: #818181;
+    background: none;
 }
 
 .answer.checked {
