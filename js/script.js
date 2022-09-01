@@ -45,21 +45,84 @@ function prosseguirParaPerguntas() {
   quizzQuestionNum = document.querySelector("#quizzQuestionNumInput").value;
   quizzLevelNum = document.querySelector("#quizzLevelNumInput").value;
 
-  if (quizzTitle.length > 65 || quizzTitle.length < 20) {
-    alert("insira um titulo entre 25 e 60 caracteres e clique novamente!");
-  } else if (
-    quizzImgURL == "" ||
-    quizzQuestionNum == "" ||
-    quizzLevelNum == "" ||
-    isValidUrl(quizzImgURL) === false
-  ) {
-    alert("voce nao preencheu corretamente, preencha e clique novamente!");
-  } else {
+  const isValidTittle = verifyTittle(quizzTitle);
+  const isValidURL = verifyURL(quizzImgURL);
+  const isValidQuestionNum = verifyQuestionsNumber(quizzQuestionNum);
+  const isValidLevelNum = verifyLevelsNumber(quizzLevelNum);
+
+  if (isValidTittle && isValidURL && isValidQuestionNum && isValidLevelNum) {
     questionCreationDisplay();
     document.querySelector(".createQuizBasic").classList.add("hidden");
     document.querySelector(".createQuestions").classList.remove("hidden");
   }
 }
+
+// function check tittle
+function verifyTittle(tittle) {
+  const inputTittle = document.querySelector("#quizzNameInput");
+  const tittleLabel = document.querySelector("#quizzNameLabel");
+
+  if (tittle.length > 65 || tittle.length < 20) {
+    tittleLabel.classList.remove("hidden");
+    inputTittle.classList.add("validationInput");
+    return false;
+  } else {
+    tittleLabel.classList.add("hidden");
+    inputTittle.classList.remove("validationInput");
+  }
+
+  return true;
+}
+
+// function check url
+function verifyURL(URL) {
+  const inputURL = document.querySelector("#quizzImgURLInput");
+  const urlLabel = document.querySelector("#quizzURLLabel");
+
+  if (isValidUrl(URL) === false) {
+    urlLabel.classList.remove("hidden");
+    inputURL.classList.add("validationInput");
+    return false;
+  } else {
+    urlLabel.classList.add("hidden");
+    inputURL.classList.remove("validationInput");
+  }
+  return true;
+}
+
+// function check number of questions
+function verifyQuestionsNumber(number) {
+  const inputQuestionNum = document.querySelector("#quizzQuestionNumInput");
+  const questionNumLabel = document.querySelector("#quizzQuestionNumLabel");
+
+  if (number < 3) {
+    questionNumLabel.classList.remove("hidden");
+    inputQuestionNum.classList.add("validationInput");
+    return false;
+  } else {
+    questionNumLabel.classList.add("hidden");
+    inputQuestionNum.classList.remove("validationInput");
+  }
+  return true;
+}
+
+// function check number of levels
+function verifyLevelsNumber(number) {
+  const inputLevelNum = document.querySelector("#quizzLevelNumInput");
+  const levelNumLabel = document.querySelector("#quizzLevelNumLabel");
+
+  if (number < 2) {
+    levelNumLabel.classList.remove("hidden");
+    inputLevelNum.classList.add("validationInput");
+    return false;
+  } else {
+    levelNumLabel.classList.add("hidden");
+    inputLevelNum.classList.remove("validationInput");
+  }
+
+  return true;
+}
+
 // creates a display with the number of questions selected to edit
 function questionCreationDisplay() {
   for (let i = 0; i < quizzQuestionNum; i++) {

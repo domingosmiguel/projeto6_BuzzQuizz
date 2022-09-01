@@ -49,23 +49,27 @@
                 <h2>Comece pelo comeco</h2>
                 <div class="createQuizInputs">
                     <input id="quizzNameInput" type="text" placeholder="Titulo do seu quizz" />
+                    <p class="validationLabel hidden" id="quizzNameLabel">O título deve ter no mínimo 20 e no máximo 65 caracteres</p>
                     <input
                         id="quizzImgURLInput"
                         type="url"
                         placeholder="URL da imagem do seu quizz"
                     />
+                    <p class="validationLabel hidden" id="quizzURLLabel">O valor informado não é uma URL válida</p>
                     <input
                         id="quizzQuestionNumInput"
                         type="number"
                         min="3"
                         placeholder="Quantidade de perguntas do quizz"
                     />
+                    <p class="validationLabel hidden" id="quizzQuestionNumLabel">O quizz deve ter no mínimo 3 perguntas</p>
                     <input
                         id="quizzLevelNumInput"
                         type="number"
                         min="2"
                         placeholder="Quantidade de niveis do quizz"
                     />
+                    <p class="validationLabel hidden" id="quizzLevelNumLabel">O quizz deve ter no mínimo 2 níveis</p>
                 </div>
                 <button class="createButton" onclick="prosseguirParaPerguntas()">
                     Prosseguir para criar perguntas
