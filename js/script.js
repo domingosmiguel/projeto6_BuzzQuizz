@@ -186,6 +186,8 @@ function editPergunta(pergunta) {
 }
 // validate inputs and creates questions object
 function validateAnswerInputs() {
+  let isAllValid;
+
   for (let i = 1; i <= quizzQuestionNum; i++) {
     let answerText = document.querySelector(`#questionText${i}`).value;
     let answerBackground = document.querySelector(
@@ -253,18 +255,20 @@ function validateAnswerInputs() {
       3
     );
 
-    if (
-      isValidAnswerCorrectBackground &&
-      isValidAnswerIncorrectBackground1 &&
-      isValidAnswerIncorrectBackground2 &&
-      isValidAnswerIncorrectBackground3 &&
-      isValidTittleAnswer &&
-      isValidBackgroundAnswer &&
-      isValidTextCorrectAnswer &&
-      isValidAnswerIncorrectText1 &&
-      isValidAnswerIncorrectText2 &&
+    isAllValid = verifyAll(
+      isValidAnswerCorrectBackground,
+      isValidAnswerIncorrectBackground1,
+      isValidAnswerIncorrectBackground2,
+      isValidAnswerIncorrectBackground3,
+      isValidTittleAnswer,
+      isValidBackgroundAnswer,
+      isValidTextCorrectAnswer,
+      isValidAnswerIncorrectText1,
+      isValidAnswerIncorrectText2,
       isValidAnswerIncorrectText3
-    ) {
+    );
+
+    if (isAllValid) {
       const perguntaObj = {
         title: answerText,
         color: answerBackground,
@@ -292,11 +296,43 @@ function validateAnswerInputs() {
         ],
       };
       questionsArray.push(perguntaObj);
-    } else {return};
-  } 
-  levelCreationDisplay();
-  document.querySelector(".createQuestions").classList.add("hidden");
-  document.querySelector(".createLevels").classList.remove("hidden");
+    }
+  }
+  if (isAllValid) {
+    levelCreationDisplay();
+    document.querySelector(".createQuestions").classList.add("hidden");
+    document.querySelector(".createLevels").classList.remove("hidden");
+  }
+}
+
+function verifyAll(
+  isValidAnswerCorrectBackground,
+  isValidAnswerIncorrectBackground1,
+  isValidAnswerIncorrectBackground2,
+  isValidAnswerIncorrectBackground3,
+  isValidTittleAnswer,
+  isValidBackgroundAnswer,
+  isValidTextCorrectAnswer,
+  isValidAnswerIncorrectText1,
+  isValidAnswerIncorrectText2,
+  isValidAnswerIncorrectText3
+) {
+  if (
+    isValidAnswerCorrectBackground &&
+    isValidAnswerIncorrectBackground1 &&
+    isValidAnswerIncorrectBackground2 &&
+    isValidAnswerIncorrectBackground3 &&
+    isValidTittleAnswer &&
+    isValidBackgroundAnswer &&
+    isValidTextCorrectAnswer &&
+    isValidAnswerIncorrectText1 &&
+    isValidAnswerIncorrectText2 &&
+    isValidAnswerIncorrectText3
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 //verify answer text
@@ -371,12 +407,12 @@ function verifyAnswerIncorrectBackground(
   if (isValidUrl(answerIncorrectBackground) === false) {
     answerQuestionIncorrectLabel.classList.remove("hidden");
     answerQuestionIncorrectInput.classList.add("validationInput");
-    return false
+    return false;
   } else {
     answerQuestionIncorrectLabel.classList.add("hidden");
     answerQuestionIncorrectInput.classList.remove("validationInput");
   }
-  return true
+  return true;
 }
 
 // verify tittle question
@@ -433,56 +469,60 @@ function levelCreationDisplay() {
   }
 }
 function editLevel(level) {
-    level.removeAttribute("onclick");
-    let levelNum = level.getAttribute("id");
-    levelNum = Number(levelNum.replace("level", ""));
-    level.innerHTML = level.innerHTML + `
+  level.removeAttribute("onclick");
+  let levelNum = level.getAttribute("id");
+  levelNum = Number(levelNum.replace("level", ""));
+  level.innerHTML =
+    level.innerHTML +
+    `
     <div class="levelCreationSupport">
         <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
         <input id="input2Level${levelNum}" type="number" min="0" max="100" placeholder="% de acerto minima" />
         <input id="input3Level${levelNum}" type="url" placeholder="URL da imagem do nivel" />
         <input id="input4Level${levelNum}" type="text" placeholder="Descricao do nivel" />
     </div>
-    `
+    `;
 }
 
 function validateLevelInputs() {
-    levelsArray.length = 0
-    const zeroCount = [];
-    for (let i = 1; i <= quizzLevelNum; i++) {
-        let levelTitle = document.querySelector(`#input1Level${i}`).value;
-        let levelPercentage = document.querySelector(`#input2Level${i}`).value;
-        let levelURL = document.querySelector(`#input3Level${i}`).value;
-        let levelDescription = document.querySelector(`#input4Level${i}`).value;
-        if (isValidUrl(levelURL) === false){
-            alert(`Tem algo errado com sua URL!`);
-            return
-        }
-        if (levelTitle.length < 11) {
-            alert('O titulo do nivel precisa ter pelo menos 10 caracteres');
-            return
-        }
-        if (levelDescription.length < 31) {
-            alert('a descricao do nivel precisa ter pelo menos 30 caracteres');
-        }
-        const levelObj = {
-            title: levelTitle,
-            image: levelURL,
-            text: levelDescription,
-            minValue: levelPercentage
-        }
-        levelsArray.push(levelObj)
-        zeroCount.push(levelPercentage)
-    } 
-    if (zeroCount.includes('0') === false) {
-        alert('Ao menos um level deve ter 0% como minimo! Preencha e envie novamente');
-        return
-    } 
-    document.querySelector(".createLevels").classList.add("hidden");
+  levelsArray.length = 0;
+  const zeroCount = [];
+  for (let i = 1; i <= quizzLevelNum; i++) {
+    let levelTitle = document.querySelector(`#input1Level${i}`).value;
+    let levelPercentage = document.querySelector(`#input2Level${i}`).value;
+    let levelURL = document.querySelector(`#input3Level${i}`).value;
+    let levelDescription = document.querySelector(`#input4Level${i}`).value;
+    if (isValidUrl(levelURL) === false) {
+      alert(`Tem algo errado com sua URL!`);
+      return;
+    }
+    if (levelTitle.length < 11) {
+      alert("O titulo do nivel precisa ter pelo menos 10 caracteres");
+      return;
+    }
+    if (levelDescription.length < 31) {
+      alert("a descricao do nivel precisa ter pelo menos 30 caracteres");
+    }
+    const levelObj = {
+      title: levelTitle,
+      image: levelURL,
+      text: levelDescription,
+      minValue: levelPercentage,
+    };
+    levelsArray.push(levelObj);
+    zeroCount.push(levelPercentage);
+  }
+  if (zeroCount.includes("0") === false) {
+    alert(
+      "Ao menos um level deve ter 0% como minimo! Preencha e envie novamente"
+    );
+    return;
+  }
+  document.querySelector(".createLevels").classList.add("hidden");
 }
 
 function editQuizz() {
-    console.log("editou");
+  console.log("editou");
 }
 function deleteQuizz(id) {
   console.log(`apagou ${id}`);
