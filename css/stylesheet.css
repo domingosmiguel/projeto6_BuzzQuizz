@@ -78,7 +78,7 @@ h1 {
     padding: 20px;
     box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
 }
-.createQuizInputs input {
+.createQuizInputs input, .perguntaContainer input {
     height: 46px;
     width: 564px;
     padding-left: 15px;
@@ -87,10 +87,10 @@ h1 {
     color: #818181;
     border-radius: 5px;
 }
-.createQuizInputs input::placeholder {
+.createQuizInputs input::placeholder, .perguntaContainer input::placeholder {
     color: #bababa;
 }
-.createQuizInputs input:focus {
+.createQuizInputs input:focus, .perguntaContainer input:focus {
     outline: none !important;
     border: 2px solid #818181;
 }
@@ -112,32 +112,35 @@ h1 {
     font-size: 21px;
     font-weight: 400;
 }
+
 .perguntaContainer {
     display: flex;
+    flex-direction: column;
     width: 601px;
-    height: 74px;
+    height: auto;
     background-color: #ffffff;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    margin: 10px auto;
-    font-size: 20px;
-    font-weight: 700;
-}
-.perguntaContainer {
-    display: flex;
-    width: 601px;
-    height: 74px;
-    background-color: #ffffff;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+    padding: 25px 20px;
     margin: 20px auto;
     font-size: 20px;
     font-weight: 700;
     box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
 }
-
+.perguntaContainer input {
+    margin: 7px 0;
+}
+.perguntaHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/*.answerCreationSupport p{
+    padding: 20px 0;
+}*/
+.incorrectAnswer, .correctAnswer, .answerMain {
+    margin: 25px 0;
+}
 /*  
   =============
     QuizzList
