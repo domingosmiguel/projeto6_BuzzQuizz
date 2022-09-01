@@ -17,6 +17,7 @@ let quizzImgURL;
 let quizzQuestionNum;
 let quizzLevelNum;
 let questionsArray = [];
+let levelsArray = [];
 
 // funcao para teste de URL (cria uma promessa que testa a URL e caso de erro retorna false, se der sucesso retorna true)
 const isValidUrl = (urlInput) => {
@@ -26,6 +27,11 @@ const isValidUrl = (urlInput) => {
         return false;
     }
 };
+
+// funcao para teste de #HEX (usa regex e test para retornar um boolean verdadeiro caso a string seja uma hex valida, e falso caso nao seja)
+function isHex(color) {
+    return /#[0-9A-F]{6}/i.test(color);
+}
 
 //funcao que testa os valores inseridos e atribui os valores as variaveis globais que vao ser usadas para criar o objeto para enviar
 // para a API e criar o Quizz
@@ -98,7 +104,7 @@ function editPergunta(pergunta) {
             <input class="answerIncorret" id="incorrectAns3${perguntaNum}" type="text" placeholder="Resposta incorreta 3" />
             <input class="answerIncorretBackground" id="incorrectAnsBg3${perguntaNum}" type="url" placeholder="URL da imagem" /> 
         </div>
-    </div>
+   </div>
     `;
 }
 // validate inputs and creates questions object
@@ -135,6 +141,14 @@ function validateAnswerInputs() {
             alert("favor preencher corretamente");
             return;
         }
+        if (isHex(answerBackground) === false) {
+            alert("voce nao inseriu uma cor HEX valida para o background (ex: #FFFFFF)");
+            return;
+        }
+        if (answerText.length < 21) {
+            alert("sua pergunta deve ter pelo menos 20 caracteres!");
+            return;
+        }
         const perguntaObj = {
             title: answerText,
             color: answerBackground,
@@ -163,9 +177,73 @@ function validateAnswerInputs() {
         };
         questionsArray.push(perguntaObj);
     }
+    levelCreationDisplay();
     document.querySelector(".createQuestions").classList.add("hidden");
+    document.querySelector(".createLevels").classList.remove("hidden");
 }
-function editQuizz(id) {
+// creates a display with the number of levels selected to edit
+function levelCreationDisplay() {
+    for (let i = 0; i < quizzLevelNum; i++) {
+        const template = `<li>
+            <div class="levelContainer" onclick="editLevel(this)" id="level${i + 1}">
+                <div class="levelHeader">
+                    <p>Nivel ${i + 1}</p>
+                    <span class="material-symbols-outlined" id="pergunta${i}Button">
+                        edit_square
+                    </span>
+                </div>
+            </div>
+        </li>`;
+        document.querySelector(".createLevels ul").innerHTML =
+            document.querySelector(".createLevels ul").innerHTML + template;
+    }
+}
+function editLevel(level) {
+    level.removeAttribute("onclick");
+    let levelNum = level.getAttribute("id");
+    levelNum = Number(levelNum.replace("pergunta", ""));
+    level.innerHTML =
+        level.innerHTML +
+        `
+    <div class="levelCreationSupport">
+        <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
+        <input id="input2Level${levelNum}" type="number" min="0" max="100" placeholder="% de acerto minima" />
+        <input id="input3Level${levelNum}" type="url" placeholder="URL da imagem do nivel" />
+        <input id="input4Level${levelNum}" type="text" placeholder="Descricao do nivel" />
+    </div>
+    `;
+}
+/*
+function validateLevelInputs() {
+    for (let i = 0; i < quizzLevelNum; i++) {
+        let levelTitle = document.querySelector(`#input1Level${i+1}`).value;
+        let levelPercentage = document.querySelector(`#input2Level${i+1}`).value;
+        let levelURL = document.querySelector(`#input3Level${i+1}`).value;
+        let levelDescription = document.querySelector(`#input4Level${i+1}`).value;
+        if (isValidUrl(levelURL) === false){
+            alert(`Tem algo errado com sua URL!`);
+            return
+        }
+        if (levelTitle.length < 11) {
+            alert('O titulo do nivel precisa ter pelo menos 10 caracteres');
+            return
+        }
+        if (levelDescription.length < 31) {
+            alert('a descricao do nivel precisa ter pelo menos 30 caracteres');
+        }
+        const levelObj = {
+            title: levelTitle,
+            image: levelURL,
+            text: levelDescription,
+            minValue: levelPercentage
+        }
+        levelsArray.push(levelObj)
+        console.log(levelsArray)
+    }
+    
+}
+*/
+function editQuizz() {
     console.log(`editou ${id}`);
 }
 function deleteQuizz(id) {
