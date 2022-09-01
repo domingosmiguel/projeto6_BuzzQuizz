@@ -1,13 +1,17 @@
 const cssLoader = document.querySelector("div.loader");
 const quizzListSection = document.querySelector("section.quizzList");
 const createQuizSection = document.querySelector("section.createQuiz");
-const emptyUserQuizzContainer = document.querySelector("section.quizzList div.own_quizz_empty");
-const userQuizzTitle = document.querySelector("section.quizzList div.quizz_title:first-of-type");
+const emptyUserQuizzContainer = document.querySelector(
+  "section.quizzList div.own_quizz_empty"
+);
+const userQuizzTitle = document.querySelector(
+  "section.quizzList div.quizz_title:first-of-type"
+);
 const userQuizzContainer = document.querySelector(
-    "section.quizzList div.quizz_container:not(:last-of-type)"
+  "section.quizzList div.quizz_container:not(:last-of-type)"
 );
 const serverQuizzContainer = document.querySelector(
-    "section.quizzList div.quizz_container:last-of-type"
+  "section.quizzList div.quizz_container:last-of-type"
 );
 
 let localUserQuizzIds = [];
@@ -20,35 +24,35 @@ let questionsArray = [];
 
 // funcao para teste de URL (cria uma promessa que testa a URL e caso de erro retorna false, se der sucesso retorna true)
 const isValidUrl = (urlInput) => {
-    try {
-        return Boolean(new URL(urlInput));
-    } catch (e) {
-        return false;
-    }
+  try {
+    return Boolean(new URL(urlInput));
+  } catch (e) {
+    return false;
+  }
 };
 
 //funcao que testa os valores inseridos e atribui os valores as variaveis globais que vao ser usadas para criar o objeto para enviar
 // para a API e criar o Quizz
 function prosseguirParaPerguntas() {
-    quizzTitle = document.querySelector("#quizzNameInput").value;
-    quizzImgURL = document.querySelector("#quizzImgURLInput").value;
-    quizzQuestionNum = document.querySelector("#quizzQuestionNumInput").value;
-    quizzLevelNum = document.querySelector("#quizzLevelNumInput").value;
+  quizzTitle = document.querySelector("#quizzNameInput").value;
+  quizzImgURL = document.querySelector("#quizzImgURLInput").value;
+  quizzQuestionNum = document.querySelector("#quizzQuestionNumInput").value;
+  quizzLevelNum = document.querySelector("#quizzLevelNumInput").value;
 
-    if (quizzTitle.length > 65 || quizzTitle.length < 20) {
-        alert("insira um titulo entre 25 e 60 caracteres e clique novamente!");
-    } else if (
-        quizzImgURL == "" ||
-        quizzQuestionNum == "" ||
-        quizzLevelNum == "" ||
-        isValidUrl(quizzImgURL) === false
-    ) {
-        alert("voce nao preencheu corretamente, preencha e clique novamente!");
-    } else {
-        questionCreationDisplay();
-        document.querySelector(".createQuizBasic").classList.add("hidden");
-        document.querySelector(".createQuestions").classList.remove("hidden");
-    }
+  if (quizzTitle.length > 65 || quizzTitle.length < 20) {
+    alert("insira um titulo entre 25 e 60 caracteres e clique novamente!");
+  } else if (
+    quizzImgURL == "" ||
+    quizzQuestionNum == "" ||
+    quizzLevelNum == "" ||
+    isValidUrl(quizzImgURL) === false
+  ) {
+    alert("voce nao preencheu corretamente, preencha e clique novamente!");
+  } else {
+    questionCreationDisplay();
+    document.querySelector(".createQuizBasic").classList.add("hidden");
+    document.querySelector(".createQuestions").classList.remove("hidden");
+  }
 }
 // creates a display with the number of questions selected to edit
 function questionCreationDisplay() {
@@ -63,9 +67,9 @@ function questionCreationDisplay() {
                 </div>
             </div>
         </li>`;
-        document.querySelector(".createQuestions ul").innerHTML =
-            document.querySelector(".createQuestions ul").innerHTML + template;
-    }
+    document.querySelector(".createQuestions ul").innerHTML =
+      document.querySelector(".createQuestions ul").innerHTML + template;
+  }
 }
 // changes question innerHTML to inputs
 function editPergunta(pergunta) {
@@ -153,61 +157,67 @@ function validateAnswerInputs() {
 }
 
 function toggleVisibility(itemsToHide, itemsToShow) {
-    itemsToHide.forEach((item) => {
-        item.classList.add("hidden");
-    });
-    itemsToShow.forEach((item) => {
-        item.classList.remove("hidden");
-    });
+  itemsToHide.forEach((item) => {
+    item.classList.add("hidden");
+  });
+  itemsToShow.forEach((item) => {
+    item.classList.remove("hidden");
+  });
 }
 function quizzTemplate(title, image, id) {
-    return `<div data-identifier="quizz-card" class="quizz" onclick="loadSelectedQuizz(${id})">
+  return `<div data-identifier="quizz-card" class="quizz" onclick="loadSelectedQuizz(${id})">
                 <img src="${image}" alt="quizz_image">
                 <p class="dsp_flex">${title}</p>
             </div>`;
 }
 function renderQuizz(quizzContainer, quizz) {
-    quizzContainer.innerHTML += quizzTemplate(quizz.title, quizz.image, quizz.id);
+  quizzContainer.innerHTML += quizzTemplate(quizz.title, quizz.image, quizz.id);
 }
 function handleQuizz(quizz) {
-    let thisIsALocalQuizz = false;
-    localUserQuizzIds.some((localUserQuizzId) => {
-        if (localUserQuizzId === quizz.id) {
-            renderQuizz(userQuizzContainer, quizz);
-            thisIsALocalQuizz = true;
-            return true;
-        }
-        return false;
-    });
-    if (!thisIsALocalQuizz) renderQuizz(serverQuizzContainer, quizz);
+  let thisIsALocalQuizz = false;
+  localUserQuizzIds.some((localUserQuizzId) => {
+    if (localUserQuizzId === quizz.id) {
+      renderQuizz(userQuizzContainer, quizz);
+      thisIsALocalQuizz = true;
+      return true;
+    }
+    return false;
+  });
+  if (!thisIsALocalQuizz) renderQuizz(serverQuizzContainer, quizz);
 }
 function quizListLoad(promise) {
-    toggleVisibility([cssLoader], [quizzListSection]);
-    const quizzes = promise.data;
-    quizzes.forEach((quizz) => {
-        handleQuizz(quizz);
-    });
-    if (localUserQuizzIds.length !== 0) {
-        toggleVisibility([emptyUserQuizzContainer], [userQuizzTitle, userQuizzContainer]);
-    }
+  toggleVisibility([cssLoader], [quizzListSection]);
+  const quizzes = promise.data;
+  quizzes.forEach((quizz) => {
+    handleQuizz(quizz);
+  });
+  if (localUserQuizzIds.length !== 0) {
+    toggleVisibility(
+      [emptyUserQuizzContainer],
+      [userQuizzTitle, userQuizzContainer]
+    );
+  }
 }
 function createQuizzButtonListenersSetup() {
-    document.querySelectorAll(".create_quizz").forEach((button) => {
-        button.addEventListener("click", () => {
-            toggleVisibility([quizzListSection], [createQuizSection]);
-        });
+  document.querySelectorAll(".create_quizz").forEach((button) => {
+    button.addEventListener("click", () => {
+      toggleVisibility([quizzListSection], [createQuizSection]);
     });
+  });
 }
 function startWebsite() {
-    createQuizzButtonListenersSetup();
-    const getQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    getQuizzes.then(quizListLoad);
+  createQuizzButtonListenersSetup();
+  const getQuizzes = axios.get(
+    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
+  );
+  getQuizzes.then(quizListLoad);
 }
 startWebsite();
 
 // Question Page
 
 const divQuestions = document.querySelector("section.answerQuizz");
+let idQuizz;
 let numberQuestions = 0;
 let verifiedQuestions = 0;
 let correctAnswers = 0;
@@ -215,39 +225,43 @@ let quizz;
 
 // load selected quizz by ID.
 function loadSelectedQuizz(id) {
-    toggleVisibility([quizzListSection], [cssLoader]);
+  console.log(id);
+  if (id !== null) {
+    idQuizz = id;
+  }
+  toggleVisibility([quizzListSection], [cssLoader]);
 
-    const getSelectedQuizz = axios.get(
-        `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`
-    );
-    getSelectedQuizz.then(selectedQuizzLoad);
+  const getSelectedQuizz = axios.get(
+    `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`
+  );
+  getSelectedQuizz.then(selectedQuizzLoad);
 }
 
 // adding on HTML quizz selected by ID.
 function selectedQuizzLoad(promise) {
-    console.log(promise.data);
-    toggleVisibility([cssLoader], [divQuestions]);
-    quizz = promise.data;
-    numberQuestions = quizz.questions.length;
+  console.log(promise.data);
+  toggleVisibility([cssLoader], [divQuestions]);
+  quizz = promise.data;
+  numberQuestions = quizz.questions.length;
 
-    // tittle
-    const tittle = document.querySelector(".answerQuizz .tittle p");
-    tittle.innerHTML = quizz.title;
+  // tittle
+  const tittle = document.querySelector(".answerQuizz .tittle p");
+  tittle.innerHTML = quizz.title;
 
-    // img tittle
-    const imgTittle = document.querySelector(".answerQuizz .tittle");
-    imgTittle.style.background = `url('${quizz.image}')`;
+  // img tittle
+  const imgTittle = document.querySelector(".answerQuizz .tittle");
+  imgTittle.style.background = `url('${quizz.image}')`;
 
-    // questions
-    const questions = quizz.questions;
-    questions.forEach(templateQuestion);
+  // questions
+  const questions = quizz.questions;
+  questions.forEach(templateQuestion);
 }
 
 // template question
 function templateQuestion(question) {
-    let allAnswers = "";
-    question.answers.forEach((answer) => {
-        allAnswers += `
+  let allAnswers = "";
+  question.answers.forEach((answer) => {
+    allAnswers += `
         <div class="answer ${answer.isCorrectAnswer}" onClick="verifyAnswer(this)">
             <img
                 src="${answer.image}"
@@ -255,9 +269,9 @@ function templateQuestion(question) {
             <p>${answer.text}</p>
         </div>
     `;
-    });
+  });
 
-    const questionHTML = ` 
+  const questionHTML = ` 
     <div class="card_quizz">
             <div style="background-color: ${question.color}" class="card_header dsp_flex">
                 <p>${question.title}</p>
@@ -268,34 +282,45 @@ function templateQuestion(question) {
     </div>
     `;
 
-    divQuestions.innerHTML += questionHTML;
+  divQuestions.innerHTML += questionHTML;
 }
 
 // verify answer
 
 function verifyAnswer(answer) {
-    answer.classList.add("clickChecked");
+  answer.classList.add("clickChecked");
 
-    // if answer is correct
-    if (answer.classList.contains("true")) correctAnswers++;
+  // if answer is correct
+  if (answer.classList.contains("true")) correctAnswers++;
 
-    const card = answer.parentNode;
-    const allAnswers = card.querySelectorAll(".answer");
-    allAnswers.forEach((res) => {
-        res.classList.add("checked");
-        res.removeAttribute("onClick");
-    });
+  const card = answer.parentNode;
+  const allAnswers = card.querySelectorAll(".answer");
+  allAnswers.forEach((res) => {
+    res.classList.add("checked");
+    res.removeAttribute("onClick");
+  });
 
-    verifiedQuestions++;
-    if (verifiedQuestions === numberQuestions) {
-        showResult();
-    }
+  // scroll to next question
+  const nextElement = card.parentNode.nextElementSibling;
+  if (nextElement !== null) {
+    setTimeout(() => {
+      nextElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 2000);
+  }
+
+  verifiedQuestions++;
+  if (verifiedQuestions === numberQuestions) {
+    showResult();
+  }
 }
 
 // show result
 function showResult() {
-    const level = verifyLevel();
-    divQuestions.innerHTML += `
+  const level = verifyLevel();
+  divQuestions.innerHTML += `
     <div class="card_result">
         <div class="card_header dsp_flex">
             <p>${level.title}</p>
@@ -316,40 +341,45 @@ function showResult() {
     </div>
     `;
 
-    // scroll to result
-    setInterval(() => {
-        divQuestions
-            .querySelector(".card_result")
-            .scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 2000);
+  // scroll to result
+  setTimeout(() => {
+    divQuestions
+      .querySelector(".card_result")
+      .scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 2000);
 }
 
 function verifyLevel() {
-    const percentageLevel = (correctAnswers / numberQuestions) * 100;
-    let level;
-    quizz.levels.forEach((lvl) => {
-        if (percentageLevel > lvl.minValue) {
-            level = lvl;
-        }
-    });
+  const percentageLevel = (correctAnswers / numberQuestions) * 100;
+  let level;
+  quizz.levels.forEach((lvl) => {
+    if (percentageLevel > lvl.minValue) {
+      level = lvl;
+    }
+  });
 
-    return level;
+  return level;
 }
 
-function reloadQuizz() {
-    divQuestions.innerHTML = `
+function cleanQuizzPage() {
+  verifiedQuestions = 0;
+  correctAnswers = 0;
+  divQuestions.innerHTML = `
   <div class="tittle">
     <div class="opacity dsp_flex">
         <p></p>
     </div>
   </div>
  `;
-    loadSelectedQuizz();
+}
+
+function reloadQuizz() {
+  cleanQuizzPage();
+  loadSelectedQuizz(null);
 }
 
 function loadHome() {
-    toggleVisibility([divQuestions], [cssLoader]);
-    startWebsite();
+  cleanQuizzPage();
+  toggleVisibility([divQuestions], [cssLoader]);
+  startWebsite();
 }
-
-// loadSelectedQuizz();
