@@ -176,7 +176,7 @@ function levelCreationDisplay() {
             <div class="levelContainer" onclick="editLevel(this)" id="level${i + 1}">
                 <div class="levelHeader">
                     <p>Nivel ${i + 1}</p>
-                    <span class="material-symbols-outlined" id="pergunta${i}Button">
+                    <span class="material-symbols-outlined" id="level${i}Button">
                         edit_square
                     </span>
                 </div>
@@ -189,7 +189,7 @@ function levelCreationDisplay() {
 function editLevel(level) {
     level.removeAttribute("onclick");
     let levelNum = level.getAttribute("id");
-    levelNum = Number(levelNum.replace("pergunta", ""));
+    levelNum = Number(levelNum.replace("level", ""));
     level.innerHTML = level.innerHTML + `
     <div class="levelCreationSupport">
         <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
@@ -199,13 +199,15 @@ function editLevel(level) {
     </div>
     `
 }
-/*
+
 function validateLevelInputs() {
-    for (let i = 0; i < quizzLevelNum; i++) {
-        let levelTitle = document.querySelector(`#input1Level${i+1}`).value;
-        let levelPercentage = document.querySelector(`#input2Level${i+1}`).value;
-        let levelURL = document.querySelector(`#input3Level${i+1}`).value;
-        let levelDescription = document.querySelector(`#input4Level${i+1}`).value;
+    levelsArray.length = 0;
+    const zeroCount = [];
+    for (let i = 1; i <= quizzLevelNum; i++) {
+        let levelTitle = document.querySelector(`#input1Level${i}`).value;
+        let levelPercentage = document.querySelector(`#input2Level${i}`).value;
+        let levelURL = document.querySelector(`#input3Level${i}`).value;
+        let levelDescription = document.querySelector(`#input4Level${i}`).value;
         if (isValidUrl(levelURL) === false){
             alert(`Tem algo errado com sua URL!`);
             return
@@ -224,11 +226,15 @@ function validateLevelInputs() {
             minValue: levelPercentage
         }
         levelsArray.push(levelObj)
-        console.log(levelsArray)
-    }
-    
+        zeroCount.push(levelPercentage)
+    } 
+    if (zeroCount.includes('0') === false) {
+        alert('Ao menos um level deve ter 0% como minimo! Preencha e envie novamente');
+        return
+    } 
+    document.querySelector(".createLevels").classList.add("hidden");
 }
-*/
+
 function editQuizz() {
     console.log("editou");
 }
