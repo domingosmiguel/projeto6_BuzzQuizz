@@ -292,12 +292,11 @@ function validateAnswerInputs() {
         ],
       };
       questionsArray.push(perguntaObj);
-
-      levelCreationDisplay();
-      document.querySelector(".createQuestions").classList.add("hidden");
-      document.querySelector(".createLevels").classList.remove("hidden");
-    }
-  }
+    } else {return};
+  } 
+  levelCreationDisplay();
+  document.querySelector(".createQuestions").classList.add("hidden");
+  document.querySelector(".createLevels").classList.remove("hidden");
 }
 
 //verify answer text
@@ -372,10 +371,12 @@ function verifyAnswerIncorrectBackground(
   if (isValidUrl(answerIncorrectBackground) === false) {
     answerQuestionIncorrectLabel.classList.remove("hidden");
     answerQuestionIncorrectInput.classList.add("validationInput");
+    return false
   } else {
     answerQuestionIncorrectLabel.classList.add("hidden");
     answerQuestionIncorrectInput.classList.remove("validationInput");
   }
+  return true
 }
 
 // verify tittle question
@@ -420,7 +421,7 @@ function levelCreationDisplay() {
     const template = `<li>
             <div class="levelContainer" onclick="editLevel(this)" id="level${i}">
                 <div class="levelHeader">
-                    <p>Nivel ${i + 1}</p>
+                    <p>Nivel ${i}</p>
                     <span class="material-symbols-outlined">
                         edit_square
                     </span>
@@ -447,6 +448,7 @@ function editLevel(level) {
 
 function validateLevelInputs() {
     levelsArray.length = 0
+    const zeroCount = [];
     for (let i = 1; i <= quizzLevelNum; i++) {
         let levelTitle = document.querySelector(`#input1Level${i}`).value;
         let levelPercentage = document.querySelector(`#input2Level${i}`).value;
