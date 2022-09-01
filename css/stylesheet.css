@@ -61,7 +61,8 @@ h1 {
     visibility: hidden;
 }
 .createQuizBasic,
-.createQuestions {
+.createQuestions,
+.createLevels {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +81,8 @@ h1 {
     box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
 }
 .createQuizInputs input,
-.perguntaContainer input {
+.perguntaContainer input,
+.levelContainer input {
     height: 46px;
     width: 564px;
     padding-left: 15px;
@@ -118,7 +120,7 @@ h1 {
     font-weight: 400;
 }
 
-.perguntaContainer {
+.perguntaContainer, .levelContainer {
     display: flex;
     flex-direction: column;
     width: 601px;
@@ -132,18 +134,18 @@ h1 {
     box-shadow: 0px 0px 6px 1px rgba(138, 137, 137, 0.15);
 }
 
-.perguntaContainer input {
+.perguntaContainer input, .levelContainer input {
     margin: 7px 0;
 }
-.perguntaHeader {
+.perguntaHeader, .levelHeader {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-/*.answerCreationSupport p{
-    padding: 20px 0;
-}*/
+.levelCreationSupport {
+    margin-top: 20px;
+}
 .incorrectAnswer,
 .correctAnswer,
 .answerMain {
