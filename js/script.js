@@ -51,6 +51,10 @@ function prosseguirParaPerguntas() {
         questionCreationDisplay();
         document.querySelector(".createQuizBasic").classList.add("hidden");
         document.querySelector(".createQuestions").classList.remove("hidden");
+        document.querySelector("#quizzNameInput").value = "";
+        document.querySelector("#quizzImgURLInput").value = "";
+        document.querySelector("#quizzQuestionNumInput").value = "";
+        document.querySelector("#quizzLevelNumInput").value = "";
     }
 }
 
