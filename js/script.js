@@ -20,6 +20,7 @@ let quizzLevelNum;
 let questionsArray = [];
 let levelsArray = [];
 let newQuizzID;
+let indexToDelete;
 // funcao para teste de URL (cria uma promessa que testa a URL e caso de erro retorna false, se der sucesso retorna true)
 const isValidUrl = (urlInput) => {
     try {
@@ -500,7 +501,8 @@ function newQuizzCreationSuccessful(promise) {
     console.log(promise.data);
 }
 function newQuizzCreationFailed() {
-    alert("Falha na criação do dono Quizz");
+    alert("Falha na criação do novo Quizz");
+    loadHome();
 }
 function editQuizz() {
     console.log("editou");
@@ -509,11 +511,25 @@ function deleteQuizz(id) {
     console.log(`apagou ${id}`);
     const answer = confirm(`Deseja realmente apagar este Quizz?`);
     console.log(answer);
-    // if (answer === true) {
-    //     const deleteRequest = axios.delete(
-    //         `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`
-    //     );
-    // }
+    if (answer === true) {
+        toggleVisibility([quizzListSection], [cssLoader]);
+        indexToDelete = localUserQuizzIds.indexOf(id);
+        const deleteRequest = axios.delete(
+            `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`,
+            { headers: { "Secret-Key": localUserQuizzKeys[indexToDelete] } }
+        );
+        deleteRequest.then(successfullyDeleted);
+        deleteRequest.catch(failedToDelete);
+    }
+}
+function successfullyDeleted() {
+    alert("Deletado com sucesso!");
+    localUserQuizzIds.splice(indexToDelete, 1);
+    localUserQuizzKeys.splice(indexToDelete, 1);
+    loadHome();
+}
+function failedToDelete() {
+    alert("Falha ao deletar!");
 }
 function toggleVisibility(itemsToHide, itemsToShow) {
     itemsToHide.forEach((item) => {
@@ -562,8 +578,10 @@ function quizListLoad(promise) {
     quizzes.forEach((quizz) => {
         handleQuizz(quizz);
     });
-    if (localUserQuizzIds.length !== 0) {
+    if (localUserQuizzIds.length > 0) {
         toggleVisibility([emptyUserQuizzContainer], [userQuizzTitle, userQuizzContainer]);
+    } else {
+        toggleVisibility([userQuizzTitle, userQuizzContainer], [emptyUserQuizzContainer]);
     }
 }
 function createQuizzButtonListenersSetup() {
@@ -757,8 +775,7 @@ function reloadQuizz() {
 }
 
 function loadHome() {
-    document.querySelector("div.finishQuiz").classList.add("hidden");
     cleanQuizzPage();
-    toggleVisibility([divQuestions, createQuizSection], [cssLoader]);
+    toggleVisibility([divQuestions, createQuizSection, finishQuizzPage], [cssLoader]);
     startWebsite();
 }
