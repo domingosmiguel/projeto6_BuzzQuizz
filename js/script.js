@@ -623,15 +623,20 @@ function newQuizzCreationSuccessful(promise) {
   finishQuizzPage.querySelector("div img").src = quizzImgURL;
   finishQuizzPage.querySelector("div p").innerHTML = quizzTitle;
 
-  //reset question and lvl page
-  document.querySelector(".createQuestions ul").innerHTML = "";
-  document.querySelector(".createLevels ul").innerHTML = "";
+  resetQuizzCreation();
   toggleVisibility([cssLoader], [createQuizSection, finishQuizzPage]);
 }
 function newQuizzCreationFailed() {
   alert("Falha na criação do novo Quizz");
+  resetQuizzCreation();
   loadHome();
 }
+//reset question and lvl page
+function resetQuizzCreation() {
+  document.querySelector(".createQuestions ul").innerHTML = "";
+  document.querySelector(".createLevels ul").innerHTML = "";
+}
+
 function saveUserQuizListLocally() {
   idsAndKeysToSave = JSON.stringify(localUserQuizzIdsAndKeys);
   localStorage.setItem("savedIdsAndKeys", idsAndKeysToSave);
