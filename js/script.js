@@ -11,8 +11,7 @@ const serverQuizzContainer = document.querySelector(
 );
 const finishQuizzPage = document.querySelector("div.finishQuiz");
 
-const localUserQuizzIds = [];
-const localUserQuizzKeys = [];
+let localUserQuizzIdsAndKeys = [[], []];
 let quizzTitle;
 let quizzImgURL;
 let quizzQuestionNum;
@@ -493,30 +492,32 @@ function validateLevelInputs() {
 function newQuizzCreationSuccessful(promise) {
     const newQuizz = promise.data;
     newQuizzID = newQuizz.id;
-    localUserQuizzIds.push(newQuizz.id);
-    localUserQuizzKeys.push(newQuizz.key);
+    localUserQuizzIdsAndKeys[0].push(newQuizz.id);
+    localUserQuizzIdsAndKeys[1].push(newQuizz.key);
+    saveUserQuizListLocally();
     finishQuizzPage.querySelector("div img").src = quizzImgURL;
     finishQuizzPage.querySelector("div p").innerHTML = quizzTitle;
     toggleVisibility([cssLoader], [createQuizSection, finishQuizzPage]);
-    console.log(promise.data);
 }
 function newQuizzCreationFailed() {
     alert("Falha na criação do novo Quizz");
     loadHome();
 }
-function editQuizz() {
-    console.log("editou");
+function saveUserQuizListLocally() {
+    idsAndKeysToSave = JSON.stringify(localUserQuizzIdsAndKeys);
+    localStorage.setItem("savedIdsAndKeys", idsAndKeysToSave);
+}
+function editQuizz(id) {
+    console.log(`editou ${id}`);
 }
 function deleteQuizz(id) {
-    console.log(`apagou ${id}`);
     const answer = confirm(`Deseja realmente apagar este Quizz?`);
-    console.log(answer);
     if (answer === true) {
         toggleVisibility([quizzListSection], [cssLoader]);
-        indexToDelete = localUserQuizzIds.indexOf(id);
+        indexToDelete = localUserQuizzIdsAndKeys[0].indexOf(id);
         const deleteRequest = axios.delete(
             `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`,
-            { headers: { "Secret-Key": localUserQuizzKeys[indexToDelete] } }
+            { headers: { "Secret-Key": localUserQuizzIdsAndKeys[1][indexToDelete] } }
         );
         deleteRequest.then(successfullyDeleted);
         deleteRequest.catch(failedToDelete);
@@ -524,8 +525,9 @@ function deleteQuizz(id) {
 }
 function successfullyDeleted() {
     alert("Deletado com sucesso!");
-    localUserQuizzIds.splice(indexToDelete, 1);
-    localUserQuizzKeys.splice(indexToDelete, 1);
+    localUserQuizzIdsAndKeys[0].splice(indexToDelete, 1);
+    localUserQuizzIdsAndKeys[1].splice(indexToDelete, 1);
+    saveUserQuizListLocally();
     loadHome();
 }
 function failedToDelete() {
@@ -560,7 +562,7 @@ function renderQuizz(templateFunction, quizzContainer, quizz) {
 }
 function handleQuizz(quizz) {
     let thisIsALocalQuizz = false;
-    localUserQuizzIds.some((localUserQuizzId) => {
+    localUserQuizzIdsAndKeys[0].some((localUserQuizzId) => {
         if (localUserQuizzId === quizz.id) {
             renderQuizz(userQuizzTemplate, userQuizzContainer, quizz);
             thisIsALocalQuizz = true;
@@ -578,7 +580,7 @@ function quizListLoad(promise) {
     quizzes.forEach((quizz) => {
         handleQuizz(quizz);
     });
-    if (localUserQuizzIds.length > 0) {
+    if (localUserQuizzIdsAndKeys[0].length > 0) {
         toggleVisibility([emptyUserQuizzContainer], [userQuizzTitle, userQuizzContainer]);
     } else {
         toggleVisibility([userQuizzTitle, userQuizzContainer], [emptyUserQuizzContainer]);
@@ -592,7 +594,14 @@ function createQuizzButtonListenersSetup() {
         });
     });
 }
+function loadLocallySavedQuizzes() {
+    const thereAreLocallySavedQuizzes = localStorage.getItem("savedIdsAndKeys");
+    if (typeof thereAreLocallySavedQuizzes === "string") {
+        localUserQuizzIdsAndKeys = JSON.parse(thereAreLocallySavedQuizzes);
+    }
+}
 function startWebsite() {
+    loadLocallySavedQuizzes();
     createQuizzButtonListenersSetup();
     const getQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizzes.then(quizListLoad);

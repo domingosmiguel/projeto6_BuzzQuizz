@@ -562,7 +562,7 @@ section.createQuiz div.finishQuiz div p {
 }
 section.createQuiz div.finishQuiz .createButton {
     margin-top: 45px;
-    margin-bottom: 20px;
+    margin-bottom: 9px;
     height: 44px;
     padding: 10px 20px;
     width: 220px;
@@ -580,6 +580,8 @@ section.createQuiz div.finishQuiz .createButton:hover {
 section.createQuiz div.finishQuiz button.home {
     border: none;
     border-radius: 15px;
+    width: 220px;
+    height: 44px;
     font-size: 21px;
     line-height: 25px;
     color: #818181;
