@@ -145,9 +145,21 @@ function questionCreationDisplay() {
     document.querySelector(".createQuestions ul").innerHTML += template;
   }
 }
+
+function hiddenQuestionContent(perguntaId) {
+  const question = document.querySelector(
+    `#${perguntaId} .answerCreationSupport`
+  );
+  question.classList.toggle("hidden");
+}
+
 // changes question innerHTML to inputs
 function editPergunta(pergunta) {
   pergunta.removeAttribute("onclick");
+
+  const header = pergunta.querySelector("div");
+  header.setAttribute("onClick", `hiddenQuestionContent('${pergunta.id}')`);
+
   let perguntaNum = pergunta.getAttribute("id");
   perguntaNum = Number(perguntaNum.replace("pergunta", ""));
   pergunta.innerHTML =
@@ -473,8 +485,18 @@ function levelCreationDisplay() {
     document.querySelector(".createLevels ul").innerHTML += template;
   }
 }
+
+function hiddenLevelContent(levelId) {
+  const level = document.querySelector(`#${levelId} .levelCreationSupport`);
+  level.classList.toggle("hidden");
+}
+
 function editLevel(level) {
   level.removeAttribute("onclick");
+
+  const header = level.querySelector("div");
+  header.setAttribute("onClick", `hiddenLevelContent('${level.id}')`);
+
   let levelNum = level.getAttribute("id");
   levelNum = Number(levelNum.replace("level", ""));
   level.innerHTML =
@@ -501,17 +523,6 @@ function validateLevelInputs() {
     let levelPercentage = document.querySelector(`#input2Level${i}`).value;
     let levelURL = document.querySelector(`#input3Level${i}`).value;
     let levelDescription = document.querySelector(`#input4Level${i}`).value;
-    // if (isValidUrl(levelURL) === false) {
-    //   alert(`Tem algo errado com sua URL!`);
-    //   return;
-    // }
-    // if (levelTitle.length < 11) {
-    //   alert("O titulo do nivel precisa ter pelo menos 10 caracteres");
-    //   return;
-    // }
-    // if (levelDescription.length < 31) {
-    //   alert("a descricao do nivel precisa ter pelo menos 30 caracteres");
-    // }
 
     const isValidLevelTittle = verifyLevelTittle(levelTitle, i);
     const isValidLevelPercentage = verifyLevelPercentage(levelPercentage, i);
