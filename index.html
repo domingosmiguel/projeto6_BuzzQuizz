@@ -45,7 +45,7 @@
                 </div>
         </section>
         <section class="createQuiz hidden">
-            <div class="createQuizBasic">
+            <div class="createQuizBasic hidden">
                 <h2>Comece pelo comeco</h2>
                 <div class="createQuizInputs">
                     <input id="quizzNameInput" type="text" placeholder="Titulo do seu quizz" />
@@ -89,6 +89,14 @@
                 <button class="createButton" onclick="validateLevelInputs()">
                     Finalizar Quizz
                 </button>
+            </div>
+            <div class="finishQuiz hidden">
+                <h2>Seu quizz está pronto!</h2>
+                <div><img src="" alt=""><p></p></div>
+                <button class="createButton" onclick="loadSelectedQuizz(`newQuizz`)">
+                    Acessar Quizz
+                </button>
+                <button onclick="loadHome()" class="home">Voltar pra home</button>
             </div>
         </section>
         <script
