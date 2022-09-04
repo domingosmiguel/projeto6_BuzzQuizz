@@ -525,6 +525,11 @@ div.quizz p {
 .answerMain {
   margin: 25px 0;
 }
+.answerCreationSupport .answerMain input,
+.answerCreationSupport .correctAnswer input,
+.answerCreationSupport .incorrectAnswer input {
+  width: 100%;
+}
 section.createQuiz div.finishQuiz {
   padding-left: 17px;
   padding-right: 17px;

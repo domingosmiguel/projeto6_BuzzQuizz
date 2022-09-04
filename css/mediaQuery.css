@@ -67,6 +67,43 @@
     .card_content p {
         margin-top: 10px;
     }
+    .createQuizInputs {
+        width: 89%;
+        align-items: center;
+    }
+    .perguntaContainer,
+    .levelContainer {
+        width: 100%;
+    }
+    .createQuestions ul,
+    .createLevels ul {
+        width: 100%;
+    }
+    .perguntaContainer input,
+    .levelContainer input {
+        width: 100%;
+    }
+    .levelCreationSupport input {
+        width: 100% !important;
+    }
+    .createQuiz input {
+        width: 90%;
+    }
+    .createButton {
+        width: 323px;
+        font-size: 18px;
+        height: 54px;
+        margin: 20px 0;
+    }
+    .createQuiz h2 {
+        margin-top: 5px;
+    }
+    .createQuizBasic,
+    .createQuestions,
+    .createLevels,
+    .finishQuiz {
+        margin-top: 5px;
+    }
 }
 
 @media (max-width: 400px) {
