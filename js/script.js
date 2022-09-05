@@ -229,7 +229,7 @@ function validateAnswerInputs() {
     let answerIncorrect3Background = document.querySelector(
       `#incorrectAnsBg3${i}`
     ).value;
-
+    let perguntaObj;
     // verify
     const isValidAnswerCorrectBackground = verifyAnswerCorrectBackground(
       answerCorrectBackground,
@@ -271,49 +271,86 @@ function validateAnswerInputs() {
       i,
       3
     );
-
-    if (isAllValid !== false) {
-      isAllValid = verifyAll(
-        isValidAnswerCorrectBackground,
-        isValidAnswerIncorrectBackground1,
-        isValidAnswerIncorrectBackground2,
-        isValidAnswerIncorrectBackground3,
-        isValidTittleAnswer,
-        isValidBackgroundAnswer,
-        isValidTextCorrectAnswer,
-        isValidAnswerIncorrectText1,
-        isValidAnswerIncorrectText2,
-        isValidAnswerIncorrectText3
-      );
-    }
-    if (isAllValid) {
-      const perguntaObj = {
-        title: answerText,
-        color: answerBackground,
-        answers: [
-          {
-            text: answerCorrect,
-            image: answerCorrectBackground,
-            isCorrectAnswer: true,
-          },
-          {
-            text: answerIncorrect1,
-            image: answerIncorrect1Background,
-            isCorrectAnswer: false,
-          },
-          {
-            text: answerIncorrect2,
-            image: answerIncorrect2Background,
-            isCorrectAnswer: false,
-          },
-          {
-            text: answerIncorrect3,
-            image: answerIncorrect3Background,
-            isCorrectAnswer: false,
-          },
-        ],
-      };
-      questionsArray.push(perguntaObj);
+    if (isValidAnswerCorrectBackground && isValidAnswerIncorrectBackground1 && isValidAnswerIncorrectBackground2
+      && isValidTittleAnswer && isValidBackgroundAnswer && isValidTextCorrectAnswer && isValidAnswerIncorrectText1 && isValidAnswerIncorrectText2
+      && answerIncorrect3 === '' && answerIncorrect3Background === ''){
+        perguntaObj = {
+          title: answerText,
+          color: answerBackground,
+          answers: [
+            {
+              text: answerCorrect,
+              image: answerCorrectBackground,
+              isCorrectAnswer: true,
+            },
+            {
+              text: answerIncorrect1,
+              image: answerIncorrect1Background,
+              isCorrectAnswer: false,
+            },
+            {
+              text: answerIncorrect2,
+              image: answerIncorrect2Background,
+              isCorrectAnswer: false,
+            },
+          ],
+        };
+        questionsArray.push(perguntaObj);
+        isAllValid = true;
+      }
+    if (isValidAnswerCorrectBackground && isValidAnswerIncorrectBackground1 && answerIncorrect2Background === ''
+        && isValidTittleAnswer && isValidBackgroundAnswer && isValidTextCorrectAnswer && isValidAnswerIncorrectText1 && answerIncorrect2 === ''
+        && answerIncorrect3 === '' && answerIncorrect3Background === ''){
+          perguntaObj = {
+            title: answerText,
+            color: answerBackground,
+            answers: [
+              {
+                text: answerCorrect,
+                image: answerCorrectBackground,
+                isCorrectAnswer: true,
+              },
+              {
+                text: answerIncorrect1,
+                image: answerIncorrect1Background,
+                isCorrectAnswer: false,
+              },
+            ],
+          };
+          questionsArray.push(perguntaObj);
+          isAllValid = true;
+        }  
+    if (isValidAnswerCorrectBackground && isValidAnswerIncorrectBackground1 && isValidAnswerIncorrectBackground2
+      && isValidTittleAnswer && isValidBackgroundAnswer && isValidTextCorrectAnswer && isValidAnswerIncorrectText1 && isValidAnswerIncorrectText2
+      && isValidAnswerIncorrectText3 && isValidAnswerIncorrectBackground3) {
+        perguntaObj = {
+          title: answerText,
+          color: answerBackground,
+          answers: [
+            {
+              text: answerCorrect,
+              image: answerCorrectBackground,
+              isCorrectAnswer: true,
+            },
+            {
+              text: answerIncorrect1,
+              image: answerIncorrect1Background,
+              isCorrectAnswer: false,
+            },
+            {
+              text: answerIncorrect2,
+              image: answerIncorrect2Background,
+              isCorrectAnswer: false,
+            },
+            {
+              text: answerIncorrect3,
+              image: answerIncorrect3Background,
+              isCorrectAnswer: false,
+            },
+          ],
+        };
+        questionsArray.push(perguntaObj);
+        isAllValid = true;
     }
   }
   if (isAllValid) {
@@ -322,37 +359,6 @@ function validateAnswerInputs() {
     document.querySelector(".createLevels").classList.remove("hidden");
   }
 }
-
-function verifyAll(
-  isValidAnswerCorrectBackground,
-  isValidAnswerIncorrectBackground1,
-  isValidAnswerIncorrectBackground2,
-  isValidAnswerIncorrectBackground3,
-  isValidTittleAnswer,
-  isValidBackgroundAnswer,
-  isValidTextCorrectAnswer,
-  isValidAnswerIncorrectText1,
-  isValidAnswerIncorrectText2,
-  isValidAnswerIncorrectText3
-) {
-  if (
-    isValidAnswerCorrectBackground &&
-    isValidAnswerIncorrectBackground1 &&
-    isValidAnswerIncorrectBackground2 &&
-    isValidAnswerIncorrectBackground3 &&
-    isValidTittleAnswer &&
-    isValidBackgroundAnswer &&
-    isValidTextCorrectAnswer &&
-    isValidAnswerIncorrectText1 &&
-    isValidAnswerIncorrectText2 &&
-    isValidAnswerIncorrectText3
-  ) {
-    return true;
-  }
-
-  return false;
-}
-
 //verify answer text
 function verifyTextCorrectAnswer(answerText, i) {
   const answerQuestionCorrectLabel = document.querySelector(
@@ -471,6 +477,9 @@ function verifyBackgroundAnswer(answerBackground, i) {
 
 // creates a display with the number of levels selected to edit
 function levelCreationDisplay() {
+  console.log(quizzLevelNum);
+  console.log(questionsArray.length);
+  console.log(questionsArray);
   for (let i = 1; i <= quizzLevelNum; i++) {
     const template = `<li>
             <div class="levelContainer" onclick="editLevel(this)" id="level${i}">
@@ -951,4 +960,7 @@ function loadHome() {
     [cssLoader]
   );
   startWebsite();
+}
+function reloadPage() {
+  location.reload(true);
 }

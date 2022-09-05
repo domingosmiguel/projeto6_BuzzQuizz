@@ -55,6 +55,7 @@ h1 {
   font-size: 37px;
   line-height: 43px;
   font-weight: 700;
+  cursor: pointer;
 }
 .hidden {
   display: none;
