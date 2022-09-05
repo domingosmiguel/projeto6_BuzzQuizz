@@ -203,7 +203,7 @@ function editPergunta(pergunta) {
 }
 // validate inputs and creates questions object
 function validateAnswerInputs() {
-  let isAllValid;
+  let isAllValid = false;
 
   for (let i = 1; i <= quizzQuestionNum; i++) {
     let answerText = document.querySelector(`#questionText${i}`).value;
