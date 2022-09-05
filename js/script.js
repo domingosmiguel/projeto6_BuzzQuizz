@@ -271,86 +271,113 @@ function validateAnswerInputs() {
       i,
       3
     );
-    if (isValidAnswerCorrectBackground && isValidAnswerIncorrectBackground1 && isValidAnswerIncorrectBackground2
-      && isValidTittleAnswer && isValidBackgroundAnswer && isValidTextCorrectAnswer && isValidAnswerIncorrectText1 && isValidAnswerIncorrectText2
-      && answerIncorrect3 === '' && answerIncorrect3Background === ''){
-        perguntaObj = {
-          title: answerText,
-          color: answerBackground,
-          answers: [
-            {
-              text: answerCorrect,
-              image: answerCorrectBackground,
-              isCorrectAnswer: true,
-            },
-            {
-              text: answerIncorrect1,
-              image: answerIncorrect1Background,
-              isCorrectAnswer: false,
-            },
-            {
-              text: answerIncorrect2,
-              image: answerIncorrect2Background,
-              isCorrectAnswer: false,
-            },
-          ],
-        };
-        questionsArray.push(perguntaObj);
-        isAllValid = true;
-      }
-    if (isValidAnswerCorrectBackground && isValidAnswerIncorrectBackground1 && answerIncorrect2Background === ''
-        && isValidTittleAnswer && isValidBackgroundAnswer && isValidTextCorrectAnswer && isValidAnswerIncorrectText1 && answerIncorrect2 === ''
-        && answerIncorrect3 === '' && answerIncorrect3Background === ''){
-          perguntaObj = {
-            title: answerText,
-            color: answerBackground,
-            answers: [
-              {
-                text: answerCorrect,
-                image: answerCorrectBackground,
-                isCorrectAnswer: true,
-              },
-              {
-                text: answerIncorrect1,
-                image: answerIncorrect1Background,
-                isCorrectAnswer: false,
-              },
-            ],
-          };
-          questionsArray.push(perguntaObj);
-          isAllValid = true;
-        }  
-    if (isValidAnswerCorrectBackground && isValidAnswerIncorrectBackground1 && isValidAnswerIncorrectBackground2
-      && isValidTittleAnswer && isValidBackgroundAnswer && isValidTextCorrectAnswer && isValidAnswerIncorrectText1 && isValidAnswerIncorrectText2
-      && isValidAnswerIncorrectText3 && isValidAnswerIncorrectBackground3) {
-        perguntaObj = {
-          title: answerText,
-          color: answerBackground,
-          answers: [
-            {
-              text: answerCorrect,
-              image: answerCorrectBackground,
-              isCorrectAnswer: true,
-            },
-            {
-              text: answerIncorrect1,
-              image: answerIncorrect1Background,
-              isCorrectAnswer: false,
-            },
-            {
-              text: answerIncorrect2,
-              image: answerIncorrect2Background,
-              isCorrectAnswer: false,
-            },
-            {
-              text: answerIncorrect3,
-              image: answerIncorrect3Background,
-              isCorrectAnswer: false,
-            },
-          ],
-        };
-        questionsArray.push(perguntaObj);
-        isAllValid = true;
+    if (
+      isValidAnswerCorrectBackground &&
+      isValidAnswerIncorrectBackground1 &&
+      isValidAnswerIncorrectBackground2 &&
+      isValidTittleAnswer &&
+      isValidBackgroundAnswer &&
+      isValidTextCorrectAnswer &&
+      isValidAnswerIncorrectText1 &&
+      isValidAnswerIncorrectText2 &&
+      answerIncorrect3 === "" &&
+      answerIncorrect3Background === ""
+    ) {
+      perguntaObj = {
+        title: answerText,
+        color: answerBackground,
+        answers: [
+          {
+            text: answerCorrect,
+            image: answerCorrectBackground,
+            isCorrectAnswer: true,
+          },
+          {
+            text: answerIncorrect1,
+            image: answerIncorrect1Background,
+            isCorrectAnswer: false,
+          },
+          {
+            text: answerIncorrect2,
+            image: answerIncorrect2Background,
+            isCorrectAnswer: false,
+          },
+        ],
+      };
+      questionsArray.push(perguntaObj);
+      isAllValid = true;
+    }
+    if (
+      isValidAnswerCorrectBackground &&
+      isValidAnswerIncorrectBackground1 &&
+      answerIncorrect2Background === "" &&
+      isValidTittleAnswer &&
+      isValidBackgroundAnswer &&
+      isValidTextCorrectAnswer &&
+      isValidAnswerIncorrectText1 &&
+      answerIncorrect2 === "" &&
+      answerIncorrect3 === "" &&
+      answerIncorrect3Background === ""
+    ) {
+      perguntaObj = {
+        title: answerText,
+        color: answerBackground,
+        answers: [
+          {
+            text: answerCorrect,
+            image: answerCorrectBackground,
+            isCorrectAnswer: true,
+          },
+          {
+            text: answerIncorrect1,
+            image: answerIncorrect1Background,
+            isCorrectAnswer: false,
+          },
+        ],
+      };
+      questionsArray.push(perguntaObj);
+      isAllValid = true;
+    }
+    if (
+      isValidAnswerCorrectBackground &&
+      isValidAnswerIncorrectBackground1 &&
+      isValidAnswerIncorrectBackground2 &&
+      isValidTittleAnswer &&
+      isValidBackgroundAnswer &&
+      isValidTextCorrectAnswer &&
+      isValidAnswerIncorrectText1 &&
+      isValidAnswerIncorrectText2 &&
+      isValidAnswerIncorrectText3 &&
+      isValidAnswerIncorrectBackground3
+    ) {
+      perguntaObj = {
+        title: answerText,
+        color: answerBackground,
+        answers: [
+          {
+            text: answerCorrect,
+            image: answerCorrectBackground,
+            isCorrectAnswer: true,
+          },
+          {
+            text: answerIncorrect1,
+            image: answerIncorrect1Background,
+            isCorrectAnswer: false,
+          },
+          {
+            text: answerIncorrect2,
+            image: answerIncorrect2Background,
+            isCorrectAnswer: false,
+          },
+          {
+            text: answerIncorrect3,
+            image: answerIncorrect3Background,
+            isCorrectAnswer: false,
+          },
+        ],
+      };
+      questionsArray.push(perguntaObj);
+      isAllValid = true;
     }
   }
   if (isAllValid) {
@@ -477,9 +504,6 @@ function verifyBackgroundAnswer(answerBackground, i) {
 
 // creates a display with the number of levels selected to edit
 function levelCreationDisplay() {
-  console.log(quizzLevelNum);
-  console.log(questionsArray.length);
-  console.log(questionsArray);
   for (let i = 1; i <= quizzLevelNum; i++) {
     const template = `<li>
             <div class="levelContainer" onclick="editLevel(this)" id="level${i}">
@@ -591,8 +615,6 @@ function verifyLevelTittle(levelTittle, i) {
 }
 
 function verifyLevelPercentage(levelPercentage, i) {
-  console.log(levelPercentage);
-
   const levelPercentageLabel = document.querySelector(`#input2LevelLabel${i}`);
   const levelPercentageInput = document.querySelector(`#input2Level${i}`);
   if (levelPercentage < 0 || levelPercentage > 100 || levelPercentage === "") {
@@ -662,7 +684,7 @@ function saveUserQuizListLocally() {
   localStorage.setItem("savedIdsAndKeys", idsAndKeysToSave);
 }
 function editQuizz(id) {
-  console.log(`editou ${id}`);
+  // console.log(`editou ${id}`);
 }
 function deleteQuizz(id) {
   const answer = confirm(`Deseja realmente apagar este Quizz?`);
@@ -732,7 +754,6 @@ function handleQuizz(quizz) {
     renderQuizz(serverQuizzTemplate, serverQuizzContainer, quizz);
 }
 function quizListLoad(promise) {
-  console.log(promise.data);
   userQuizzContainer.innerHTML = "";
   toggleVisibility([cssLoader], [quizzListSection]);
   const quizzes = promise.data;
@@ -805,7 +826,6 @@ function loadSelectedQuizz(id) {
 
 // adding on HTML quizz selected by ID.
 function selectedQuizzLoad(promise) {
-  console.log(promise.data);
   toggleVisibility([cssLoader], [divQuestions]);
   quizz = promise.data;
   numberQuestions = quizz.questions.length;
@@ -894,7 +914,6 @@ function verifyAnswer(answer) {
 // show result
 function showResult() {
   const level = verifyLevel();
-  console.log(level);
   divQuestions.innerHTML += `
     <div class="card_result">
         <div class="card_header dsp_flex">

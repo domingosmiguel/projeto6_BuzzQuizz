@@ -57,6 +57,7 @@ h1 {
   font-weight: 700;
   cursor: pointer;
 }
+
 .hidden {
   display: none;
   visibility: hidden;
@@ -284,6 +285,7 @@ div.quizz p {
   font-size: 39px;
   font-weight: 400;
   color: white;
+  word-break: break-all;
 }
 
 .card_quizz,
@@ -311,12 +313,17 @@ div.quizz p {
 .card_header p {
   font-size: 23px;
   color: white;
+  word-break: break-all;
 }
 
 .card_answers {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.answer {
+  max-width: 330px;
 }
 
 .answer img {
@@ -328,6 +335,7 @@ div.quizz p {
 .answer p {
   font-weight: bold;
   margin-top: 7px;
+  word-break: break-all;
 }
 
 .card_result {
@@ -354,7 +362,8 @@ div.quizz p {
   font-size: 16px;
   font-weight: 700;
   line-height: 25px;
-  letter-spacing: 0em;
+
+  word-break: break-all;
 }
 
 .nav {
