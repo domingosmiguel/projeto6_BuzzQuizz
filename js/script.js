@@ -848,7 +848,7 @@ function templateQuestion(question) {
   let allAnswers = [];
   question.answers.forEach((answer) => {
     allAnswers.push(`
-        <div class="answer ${answer.isCorrectAnswer}" onClick="verifyAnswer(this)">
+        <div class="answer ${answer.isCorrectAnswer}" onClick="verifyAnswer(this)" data-identifier="answer">
             <img
                 src="${answer.image}"
             />
@@ -862,7 +862,7 @@ function templateQuestion(question) {
   allAnswers = allAnswers.join("");
 
   const questionHTML = ` 
-    <div class="card_quizz">
+    <div class="card_quizz" data-identifier="question">
             <div style="background-color: ${question.color}" class="card_header dsp_flex">
                 <p>${question.title}</p>
             </div>
@@ -915,7 +915,7 @@ function verifyAnswer(answer) {
 function showResult() {
   const level = verifyLevel();
   divQuestions.innerHTML += `
-    <div class="card_result">
+    <div class="card_result" data-identifier="quizz-result">
         <div class="card_header dsp_flex">
             <p>${level.title}</p>
         </div>
