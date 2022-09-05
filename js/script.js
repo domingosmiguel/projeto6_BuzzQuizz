@@ -133,7 +133,7 @@ function verifyLevelsNumber(number) {
 function questionCreationDisplay() {
   for (let i = 1; i <= quizzQuestionNum; i++) {
     const template = `<li>
-            <div class="perguntaContainer" onclick="editPergunta(this)" id="pergunta${i}">
+            <div class="perguntaContainer" onclick="editPergunta(this)" id="pergunta${i}" data-identifier="expand">
                 <div class="perguntaHeader">
                     <p>Pergunta ${i}</p>
                     <span class="material-symbols-outlined" id="pergunta${i}Button">
@@ -165,7 +165,7 @@ function editPergunta(pergunta) {
   pergunta.innerHTML =
     pergunta.innerHTML +
     `
-   <div class="answerCreationSupport">
+   <div class="answerCreationSupport" data-identifier="question-form">
         <div class="answerMain">
             <input id="questionText${perguntaNum}" type="text" placeholder="Texto da pergunta" />
             <p class="validationLabel hidden" id="questionTextLabel${perguntaNum}">O texto da pergunta deve ter no mínimo 20 caracteres</p>
@@ -506,7 +506,7 @@ function verifyBackgroundAnswer(answerBackground, i) {
 function levelCreationDisplay() {
   for (let i = 1; i <= quizzLevelNum; i++) {
     const template = `<li>
-            <div class="levelContainer" onclick="editLevel(this)" id="level${i}">
+            <div class="levelContainer" onclick="editLevel(this)" id="level${i}" data-identifier="expand">
                 <div class="levelHeader">
                     <p>Nivel ${i}</p>
                     <span class="material-symbols-outlined">
@@ -535,7 +535,7 @@ function editLevel(level) {
   level.innerHTML =
     level.innerHTML +
     `
-    <div class="levelCreationSupport">
+    <div class="levelCreationSupport" data-identifier="level">
         <input id="input1Level${levelNum}" type="text" placeholder="Titulo do nivel" />
         <p class="validationLabel hidden" id="input1LevelLabel${levelNum}">O título do nível deve ter no mínimo 10 caracteres</p>
         <input id="input2Level${levelNum}" type="number" placeholder="% de acerto minima" />
